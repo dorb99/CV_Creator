@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import HomePage from "./components/Pages/Home/HomePage";
 import UserHome from "./components/Pages/Home/UserHome";
 import NavBar from "./components/Tools/NavBar";
+import Footer from "./components/Tools/Footer";
 function App() {
   return (
     <div>
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/member" element={<UserHome />}></Route>
       </Routes>
+      <Footer />
     </div>
   );
 }

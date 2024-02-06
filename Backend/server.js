@@ -15,6 +15,6 @@ mongoose
     console.log(err);
   });
 
-app.listen(6666, () => {
-  console.log("listening on 6666");
+app.listen(2000, () => {
+  console.log("listening on 2000");
 });

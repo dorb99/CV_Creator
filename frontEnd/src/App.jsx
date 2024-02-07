@@ -5,10 +5,8 @@ import HomePage from "./components/Pages/Home/HomePage";
 import UserHome from "./components/Pages/Home/UserHome";
 import NavBar from "./components/Tools/NavBar";
 import LogIn from "./components/Pages/User/LogIn";
-import SighIn from "./components/Pages/User/SighIn";
-
-import Footer from "./components/Tools/Footer";
 import SignUp from "./components/Pages/User/SignUp";
+import Footer from "./components/Tools/Footer";
 import AboutUs from "./components/Pages/Info/AboutUs";
 import Support from "./components/Pages/Info/Support";
 function App() {

@@ -21,19 +21,9 @@ const UserProvider = ({ children }) => {
         console.log(error);
       };
     }
-    // <button
-    //   className="w-fit px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
-    //   onClick={() => {
-    //     const id = "65bf8a5df10db5a99209e405";
-    //     getUserCVs(id);
-    //   }}
-    // >
-    //   Click me
-    // </button>;
   };
 
   const createUserAction = async (newUser) => {
-    console.log(import.meta.env.VITE_FRONTENV);
     try {
       await axios.post(`${import.meta.env.VITE_FRONTENV}`, newUser);
       setUserInfo(newUser);
@@ -93,7 +83,7 @@ const UserProvider = ({ children }) => {
       };
     }
   };
-  
+
   const getUser = async (username) => {
     try {
       const user = await axios.get(

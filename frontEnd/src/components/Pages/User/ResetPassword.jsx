@@ -77,21 +77,15 @@ function ResetPassword() {
   }
 
   return (
-    <div className="w-fit h-fit p-8 flex-col justify-center items-center relative">
-      <button
-      onClick={()=>setForgotClicked(0)}
-      className="absolute top-0 left-0 w-5 m-2 p-1 bg-blue-500 text-white rounded-lg hover:bg-blue-700">
-          <RiArrowGoBackFill />
-        </button>
-      <form
-        ref={form}
-        className="max-w-md w-full bg-white p-8 rounded-lg shadow-md"
-      >
-        
+    <>
+      <form ref={form}>
+      <div className="text-3xl text-black-700 pb-5 py-4 w-full flex justify-center items-center">
+              Please follow the steps
+            </div>
         {forgotClicked === 1 ? (
-          <div>
+          <>
             <input
-              className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+              className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
               type="text"
               name="username"
               value={resetInfo.name}
@@ -110,10 +104,10 @@ function ResetPassword() {
               id="code"
               name="code"
             />
-          </div>
+          </>
         ) : forgotClicked === 2 ? (
           <input
-            className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+            className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
             type="password"
             placeholder="Your code..."
             onChange={(e) => {
@@ -126,7 +120,7 @@ function ResetPassword() {
         ) : (
           <>
             <input
-              className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+              className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
               type="password"
               placeholder="New Password"
               value={newPassword.first}
@@ -138,7 +132,7 @@ function ResetPassword() {
               }}
             />
             <input
-              className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+              className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
               type="password"
               placeholder="Repeat Password"
               value={newPassword.second}
@@ -151,25 +145,36 @@ function ResetPassword() {
             />
           </>
         )}
-        <button
-          className="w-full mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
-          type="submit"
-          onClick={
-            forgotClicked === 1
-              ? sendEmail
+        <div className="flex items-center justify-evenly w-full">
+          <button
+            className="items-baseline w-fit px-4 py-2 bg-blue-300 text-white rounded-lg hover:bg-blue-500"
+            type="submit"
+            onClick={
+              forgotClicked === 1
+                ? sendEmail
+                : forgotClicked === 2
+                ? submitCode
+                : resetPassword
+            }
+          >
+            {forgotClicked === 1
+              ? "Send an email to my account"
               : forgotClicked === 2
-              ? submitCode
-              : resetPassword
-          }
-        >
-          {forgotClicked === 1
-            ? "Send an email to my account"
-            : forgotClicked === 2
-            ? "Send reset code"
-            : "Done!"}
-        </button>
+              ? "Send reset code"
+              : "Done!"}
+          </button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setForgotClicked(0);
+            }}
+            className="items-baseline w-fit px-4 py-2 bg-blue-300 text-white rounded-lg hover:bg-blue-500"
+          >
+            <RiArrowGoBackFill />
+          </button>
+        </div>
       </form>
-    </div>
+    </>
   );
 }
 

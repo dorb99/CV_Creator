@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../../Tools/Context/UserContext";
 import { CVContext } from "../../Tools/Context/CVContext";
-// import ResetPassword from "./ResetPassword";
-// import Image from "../../../assets/signin-img.jpg";
+import ResetPassword from "./ResetPassword";
+import Image from "../../../assets/signin-img.jpg";
 
 function LogIn() {
   const {
@@ -33,8 +33,7 @@ function LogIn() {
         onSubmit={(e) => onSubmit(e)}
       >
         {forgotClicked !== 0 ? (
-          // <ResetPassword />
-          null
+          <ResetPassword />
         ) : (
           <>
             <div className="text-3xl text-black-700 pb-5 py-4 w-full flex justify-center items-center">

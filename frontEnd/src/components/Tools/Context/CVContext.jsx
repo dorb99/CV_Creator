@@ -1,14 +1,11 @@
 import axios from "axios";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
 
 const CVContext = createContext();
 
 const CVProvider = ({ children }) => {
-
-//   const { userInfo, setUserInfo } = useContext(UserContext);
-  //   const userId = userInfo._id
-  const userId = "65bf84d3d86b2222d8f434bd";
+  const { userInfo, setUserInfo } = useContext(UserContext);
 
   const getCV = async (cvId) => {
     try {
@@ -22,15 +19,16 @@ const CVProvider = ({ children }) => {
   };
   const deleteCV = async (cvId) => {
     try {
+      git;
       await axios.delete(`http://localhost:2000/${userId}/cv/${cvId}`);
 
       then(() => {
         console.log("CV deleted successfully");
-        // const newUserInfo = userInfo;
-        // const indexToRemove = newUserInfo.CV.indexOf(cvId);
-        // array.splice(indexToRemove, 1);
-        // setUserInfo(newUserInfo);
-        // console.log(newUserInfo);
+        const newUserInfo = userInfo;
+        const indexToRemove = newUserInfo.CV.indexOf(cvId);
+        array.splice(indexToRemove, 1);
+        setUserInfo(newUserInfo);
+        console.log(newUserInfo);
       });
     } catch {
       (error) => {
@@ -71,6 +69,9 @@ const CVProvider = ({ children }) => {
       };
     }
   };
+  useEffect(() => {
+    const userId = userInfo._id;
+  }, [userInfo]);
 
   const contextValues = {
     // varibales

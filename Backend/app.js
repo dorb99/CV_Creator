@@ -4,7 +4,6 @@ const cvRoutes = require("./routes/cvRoutes")
 const cors = require('cors');
 const cookieParser = require("cookie-parser");
 
-const app = express();
 app.use(cookieParser());
 app.use(express.json());
 const corsOptions = {
@@ -18,5 +17,4 @@ app.use(cors(corsOptions));
 app.use("/", userRoutes)
 app.use("/:id/cv", cvRoutes)
 
-
-module.exports = app
+module.exports = app;

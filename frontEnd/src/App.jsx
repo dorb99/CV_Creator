@@ -3,10 +3,13 @@ import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import HomePage from "./components/Pages/Home/HomePage";
 import UserHome from "./components/Pages/Home/UserHome";
+import Profile from "./components/Pages/User/MyProfile"
 import NavBar from "./components/Tools/NavBar";
 import LogIn from "./components/Pages/User/LogIn";
-import SighIn from "./components/Pages/User/SighIn";
-
+import SignUp from "./components/Pages/User/SignUp";
+import Footer from "./components/Tools/Footer";
+import AboutUs from "./components/Pages/Info/AboutUs";
+import Support from "./components/Pages/Info/Support";
 function App() {
   return (
     <div>
@@ -15,9 +18,13 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/member" element={<UserHome />}></Route>
-        <Route path="/signin" element={<SighIn />}></Route>
+        <Route path="/signup" element={<SignUp />}></Route>
         <Route path="/login" element={<LogIn />}></Route>
+        <Route path="/profile" element={<Profile />}></Route>
+        <Route path="/about" element={<AboutUs />}></Route>
+        <Route path="/support" element={<Support />}></Route>
       </Routes>
+      <Footer />
     </div>
   );
 }

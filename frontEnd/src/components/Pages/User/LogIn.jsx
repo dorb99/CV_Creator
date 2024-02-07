@@ -1,43 +1,42 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../../Context";
 
-function SighIn() {
+function SignIn() {
   const { logInAction } = useContext(UserContext);
   const [logUser, setLogUser] = useState({ username: "", password: "" });
 
-  const onSubmit = (e) => {
+  const handleInputChange = (e, field) => {
+    e.preventDefault();
+    setLogUser({ ...logUser, [field]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     logInAction(logUser);
   };
 
   return (
-    <div className="w-screen min-h-screen flex justify-center items-center">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <form
-        className="bg-white p-8 rounded-lg shadow-md"
-        onSubmit={(e) => onSubmit(e)}
+        className="bg-white p-8 rounded-lg shadow-md w-full max-w-md"
+        onSubmit={handleSubmit}
       >
-        <input
-          className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
-          type="text"
-          placeholder="UserName"
-          onChange={(e) => {
-            e.preventDefault();
-            const changedUser = logUser;
-            changedUser.username = e.target.value;
-            setLogUser(changedUser);
-          }}
-        />
-        <input
-          className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
-          type="password"
-          placeholder="Password"
-          onChange={(e) => {
-            e.preventDefault();
-            const changedUser = logUser;
-            changedUser.password = e.target.value;
-            setLogUser(changedUser);
-          }}
-        />
+        <div className="mb-4">
+          <input
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+            type="text"
+            placeholder="Username"
+            onChange={(e) => handleInputChange(e, "username")}
+          />
+        </div>
+        <div className="mb-4">
+          <input
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+            type="password"
+            placeholder="Password"
+            onChange={(e) => handleInputChange(e, "password")}
+          />
+        </div>
         <button
           className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
           type="submit"
@@ -46,7 +45,7 @@ function SighIn() {
         </button>
       </form>
       <button
-        className="w-fit px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
+        className="ml-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
         onClick={() => {
           const id = "65bf8a5df10db5a99209e405";
           getAllUsers();
@@ -58,4 +57,4 @@ function SighIn() {
   );
 }
 
-export default SighIn;
+export default SignIn;

@@ -7,6 +7,7 @@ import NavBar from "./components/Tools/NavBar";
 import LogIn from "./components/Pages/User/LogIn";
 import SighIn from "./components/Pages/User/SighIn";
 
+import Footer from "./components/Tools/Footer";
 function App() {
   return (
     <div>
@@ -18,6 +19,7 @@ function App() {
         <Route path="/signin" element={<SighIn />}></Route>
         <Route path="/login" element={<LogIn />}></Route>
       </Routes>
+      <Footer />
     </div>
   );
 }

@@ -1,19 +1,20 @@
 import { useContext, useState } from "react";
-import { UserContext } from "../../Tools/Context/UserContext";
-import { CVContext } from "../../Tools/Context/CVContext";
-import ResetPassword from "./ResetPassword";
+import { UserContext } from "../../Context";
+// import { CVContext } from "../../Tools/Context/CVContext";
+// import ResetPassword from "./ResetPassword";
 
-function SignIn() {
-  const { logInAction, forgotClicked, setForgotClicked, logOutAction, userInfo } = useContext(UserContext);
+function LogIn() {
+  const {
+    logInAction,
+    forgotClicked,
+    setForgotClicked,
+    logOutAction,
+    userInfo,
+  } = useContext(UserContext);
 
   const [logUser, setLogUser] = useState({ username: "", password: "" });
 
-  const handleInputChange = (e, field) => {
-    e.preventDefault();
-    setLogUser({ ...logUser, [field]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     logInAction(logUser);
   };
@@ -61,4 +62,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default LogIn;

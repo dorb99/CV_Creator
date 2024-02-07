@@ -97,9 +97,11 @@ exports.logoutUser = (req, res) => {
 
 exports.patchUser = async (req, res) => {
   try {
-    const user = await User.findOneAndUpdate({ _id: req.params.id }, req.body, {
-      new: true,
-    }).exec();
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+    const user = await User.findOneAndUpdate(
+      { _id: req.params.id },
+      { ...req.body, password: hashedPassword }
+    ).exec();
     res.send(user);
   } catch (err) {
     res.status(500).send(err);

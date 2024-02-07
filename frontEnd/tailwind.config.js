@@ -14,6 +14,7 @@ export default {
         100: "200rem",
         98: "30rem",
         5.4: "120%",
+        profile: "100vh",
       },
       height: {
         100: "400rem",

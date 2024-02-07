@@ -18,5 +18,4 @@ app.use(cors(corsOptions));
 app.use("/", userRoutes)
 app.use("/:id/cv", cvRoutes)
 
-
-module.exports = app
+module.exports = app;

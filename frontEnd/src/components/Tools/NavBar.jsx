@@ -21,7 +21,7 @@ function NavBar() {
       {children}
       <span
         className={`absolute bottom-0 left-0 w-full h-1 transition-all duration-300 transform origin-bottom scale-x-0 group-hover:scale-x-100 -mb-1 ${
-          isTop ? "bg-dark-blue " : "bg-white "
+          isTop ? "bg-orange-1000 " : "bg-white "
         }`}
       ></span>
     </span>
@@ -30,7 +30,7 @@ function NavBar() {
     <nav
       className={`w-full px-6 py-3 flex justify-between items-center z-infi fixed ${
         isTop
-          ? "bg-opacity-0 text-dark-blue tracking-widest"
+          ? "bg-opacity-0 text-orange-1000 tracking-widest"
           : "bg-opacity-70 bg-black backdrop-blur-sm text-white tracking-widest"
       } transition-all duration-300 `}
     >
@@ -59,12 +59,16 @@ function NavBar() {
             <p>Support</p>
           </UnderlineOnHover>
         </Link>
-        <button className="bg-yellow-600 hover:bg-yellow-700 py-2 px-6 rounded-lg text-yellow-100 border-b-4 border-yellow-700 hover:border-yellow-800 transition duration-300 focus:outline-none focus:border-yellow-800 hover:border-none tracking-widest">
-          Sign Up
-        </button>
-        <button className="bg-rose-600 hover:bg-rose-700 py-2 px-6 rounded-lg text-yellow-100 border-b-4 border-rose-700 hover:border-rose-800 transition duration-300 focus:outline-none focus:border-rose-800 hover:border-none tracking-widest">
-          Log In
-        </button>
+        <Link to={"/signup"}>
+          <button className="bg-yellow-600 hover:bg-yellow-700 py-2 px-6 rounded-lg text-yellow-100 border-b-4 border-yellow-700 hover:border-yellow-800 transition duration-300 focus:outline-none focus:border-yellow-800 hover:border-none tracking-widest">
+            Sign Up
+          </button>
+        </Link>
+        <Link to={"/login"}>
+          <button className="bg-rose-600 hover:bg-rose-700 py-2 px-6 rounded-lg text-yellow-100 border-b-4 border-rose-700 hover:border-rose-800 transition duration-300 focus:outline-none focus:border-rose-800 hover:border-none tracking-widest">
+            Log In
+          </button>
+        </Link>
       </div>
     </nav>
   );

@@ -8,7 +8,12 @@ function SignIn() {
 
   const [logUser, setLogUser] = useState({ username: "", password: "" });
 
-  const onSubmit = (e) => {
+  const handleInputChange = (e, field) => {
+    e.preventDefault();
+    setLogUser({ ...logUser, [field]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     logInAction(logUser);
   };

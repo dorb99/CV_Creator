@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
-import { UserContext } from "../../Context";
+import { UserContext } from "../../Tools/Context/UserContext";
+import { CVContext } from "../../Tools/Context/CVContext";
 
 function SighIn() {
   const { createUserAction } = useContext(UserContext);
   const [checkingPassword, setCheckingPassword] = useState([]);
   const [newUser, setNewUser] = useState({
-    name: "",
+    username: "",
     password: "",
     email: "",
     cv: [],
@@ -20,6 +21,12 @@ function SighIn() {
       if (newUser.email !== "" && newUser.email !== "") {
         console.log(newUser);
         createUserAction(newUser);
+        setNewUser({
+          name: "",
+          password: "",
+          email: "",
+          cv: [],
+        });
       } else {
         console.log("fill all the inputs");
       }
@@ -83,6 +90,7 @@ function SighIn() {
           Submit
         </button>
       </form>
+      
     </div>
   );
 }

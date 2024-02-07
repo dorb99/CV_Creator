@@ -1,8 +1,11 @@
 import { useContext, useState } from "react";
-import { UserContext } from "../../Context";
+import { UserContext } from "../../Tools/Context/UserContext";
+import { CVContext } from "../../Tools/Context/CVContext";
+import ResetPassword from "./ResetPassword";
 
-function SighIn() {
-  const { logInAction } = useContext(UserContext);
+function SignIn() {
+  const { logInAction, forgotClicked, setForgotClicked, logOutAction, userInfo } = useContext(UserContext);
+
   const [logUser, setLogUser] = useState({ username: "", password: "" });
 
   const onSubmit = (e) => {
@@ -10,33 +13,27 @@ function SighIn() {
     logInAction(logUser);
   };
 
+  const handleForgotPassword = () => {
+    setForgotClicked(1);
+  };
+
   return (
-    <div className="w-screen min-h-screen flex justify-center items-center">
+    <div className="w-screen min-h-screen flex-col flex justify-center items-center bg-gray-100">
       <form
-        className="bg-white p-8 rounded-lg shadow-md"
+        className="bg-white p-8 rounded-lg shadow-md max-w-md w-full"
         onSubmit={(e) => onSubmit(e)}
       >
         <input
           className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
           type="text"
-          placeholder="UserName"
-          onChange={(e) => {
-            e.preventDefault();
-            const changedUser = logUser;
-            changedUser.username = e.target.value;
-            setLogUser(changedUser);
-          }}
+          placeholder="Username"
+          onChange={(e) => setLogUser({ ...logUser, username: e.target.value })}
         />
         <input
           className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
           type="password"
           placeholder="Password"
-          onChange={(e) => {
-            e.preventDefault();
-            const changedUser = logUser;
-            changedUser.password = e.target.value;
-            setLogUser(changedUser);
-          }}
+          onChange={(e) => setLogUser({ ...logUser, password: e.target.value })}
         />
         <button
           className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
@@ -44,18 +41,19 @@ function SighIn() {
         >
           Submit
         </button>
+        <button
+          className="w-full mt-2 px-4 py-2 bg-blue-300 text-white rounded-lg hover:bg-blue-500"
+          type="button"
+          onClick={handleForgotPassword}
+        >
+          Forgot My Password...
+        </button>
       </form>
-      <button
-        className="w-fit px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
-        onClick={() => {
-          const id = "65bf8a5df10db5a99209e405";
-          getAllUsers();
-        }}
-      >
-        Click me
-      </button>
+      <div className="mt-4 flex-col">
+        {forgotClicked !== 0 ? <ResetPassword /> : null}
+      </div>
     </div>
   );
 }
 
-export default SighIn;
+export default SignIn;

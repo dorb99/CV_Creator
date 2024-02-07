@@ -6,6 +6,6 @@
 @tailwind utilities;
 body {
   overflow-x: hidden;
-  font-family: "Bebas Neue", sans-serif;
+  font-family: "Bebas Neue", sans-serif;  
   letter-spacing: 3px;
 }

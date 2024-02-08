@@ -49,21 +49,23 @@ const UserProvider = ({ children }) => {
       setUserInfo(checkedUser);
     } catch {
       (err) => console.log(err);
+    } finally {
+      console.log(userInfo);
     }
   };
 
-    const editUserAction = async (editedUser) => {
-      const user = editedUser;
-      console.log(user);
-      try {
-        axios.patch(`${import.meta.env.VITE_FRONTENV}/user/${user.id}`, user);
-        then(console.log("User edited successfully"));
-      } catch {
-        (error) => {
-          console.log(error);
-        };
-      }
-    };
+  const editUserAction = async (editedUser) => {
+    const user = editedUser;
+    console.log(user);
+    try {
+      axios.patch(`${import.meta.env.VITE_FRONTENV}/user/${user.id}`, user);
+      then(console.log("User edited successfully"));
+    } catch {
+      (error) => {
+        console.log(error);
+      };
+    }
+  };
 
   const deleteUserAction = async (userId) => {
     const id = userId;

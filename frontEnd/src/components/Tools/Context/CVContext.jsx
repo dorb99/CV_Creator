@@ -6,7 +6,7 @@ const CVContext = createContext();
 
 const CVProvider = ({ children }) => {
   const { userInfo, setUserInfo } = useContext(UserContext);
-
+  const userId = "65c20e06142cd1aa329d1d13";
   const getCV = async (cvId) => {
     try {
       const cv = await axios.get(`http://localhost:2000/${userId}/cv/${cvId}`);

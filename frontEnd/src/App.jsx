@@ -10,6 +10,7 @@ import SignUp from "./components/Pages/User/SignUp";
 import Footer from "./components/Tools/Footer";
 import AboutUs from "./components/Pages/Info/AboutUs";
 import Support from "./components/Pages/Info/Support";
+import InfoForm from "./components/Pages/CV's/InfoForm";
 function App() {
   return (
     <div>
@@ -23,6 +24,7 @@ function App() {
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/about" element={<AboutUs />}></Route>
         <Route path="/support" element={<Support />}></Route>
+        <Route path="/infoform" element={<InfoForm />}></Route>
       </Routes>
       <Footer />
     </div>

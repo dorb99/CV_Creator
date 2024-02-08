@@ -6,7 +6,29 @@ const CVContext = createContext();
 
 const CVProvider = ({ children }) => {
   const { userInfo, setUserInfo } = useContext(UserContext);
-  const [userCV, setUserCV] = useState([]);
+  const [userCV, setUserCV] = useState([
+    {
+      _id: "65c49149c26e6ddda3feae11",
+      GeneralInfo: {
+        name_1: "erdwardf",
+        age_2: "faef",
+      },
+      EducationalHistory: {
+        education_0: "fesaf",
+        education_1: "fesafsa",
+      },
+      SkillsAndStrengths: {
+        "Skills And Strengths_1": "fesaf",
+      },
+      FormerExperience: {
+        "Former Experience_0": "efss",
+      },
+      Template: "2",
+      userId: "65c20e06142cd1aa329d1d13",
+      timestamp: "2024-02-08T08:22:24.130Z",
+      __v: 0,
+    },
+  ]);
   const getCV = async (cvId) => {
     try {
       const cv = await axios.get(`http://localhost:2000/${userId}/cv/${cvId}`);
@@ -75,6 +97,7 @@ const CVProvider = ({ children }) => {
 
   const contextValues = {
     // varibales
+    userCV,
     // actions
     getCV,
     deleteCV,

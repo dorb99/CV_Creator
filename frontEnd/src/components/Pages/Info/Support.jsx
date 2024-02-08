@@ -1,133 +1,158 @@
-import React from "react";
+import React, { useState } from "react";
+import image from "../../../assets/support.jpg";
+const ContactForm = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
 
-const SupportPage = () => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
+    });
+  };
+
   return (
-    <main className="container bg-indigo-950 pt-20 p-7">
-      <section className="search mb-8">
-        <h1 className="search-title text-4xl font-bold text-white mb-4">
-          How can we help?
-        </h1>
-        <form className="search-form relative">
-          <span className="search-icon absolute left-4 top-1/2 transform -translate-y-1/2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 478.208 478.208"
-              className="w-6 h-6 fill-current text-gray-400"
+    <div className="text-white min-h-screen">
+      <header className="bg-dark-blue py-16 text-center">
+        <div className="container mx-auto">
+          <h1 className="text-6xl font-extrabold mb-2">Contact Us</h1>
+          <p className="text-lg mt-4">We're here to assist you!</p>
+        </div>
+      </header>
+
+      <section className="container mx-auto my-12 p-8 bg-white text-gray-800 rounded-md shadow-lg flex justify-evenly items-center md:flex-row flex-col">
+        <div>
+          <h2 className="text-4xl font-bold mb-6 text-blue-900">
+            Get in Touch
+          </h2>
+          <p className="mb-4">
+            Have a question or need assistance? Feel free to reach out to our
+            support team.
+          </p>
+          <form className="flex flex-col" onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="mt-1 p-3 w-full  focus:outline-none border-b-1 focus:border-dark-blue border-b-gray-300  "
+                required
+              />
+            </div>
+
+            <div className="mb-4">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="mt-1 p-3 w-full  focus:outline-none border-b-1 focus:border-dark-blue border-b-gray-300  "
+                required
+              />
+            </div>
+
+            <div className="mb-4">
+              <label
+                htmlFor="message"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                rows="4"
+                className="mt-1 p-3 w-full  focus:outline-none border-b-1 focus:border-dark-blue border-b-gray-300  "
+                required
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 transition-all duration-300 tracking-widest"
             >
-              <path d="M473.418 449.285L303.28 279.148c59.759-73.087 48.954-180.779-24.132-240.538S98.369-10.344 38.61 62.742-10.344 243.521 62.742 303.28c62.953 51.473 153.453 51.473 216.406 0l170.138 170.138c6.78 6.548 17.584 6.36 24.132-.42 6.387-6.614 6.387-17.099 0-23.713zm-302.2-141.534c-75.37-.085-136.449-61.163-136.533-136.533 0-75.405 61.128-136.533 136.533-136.533s136.533 61.128 136.533 136.533-61.128 136.533-136.533 136.533z" />
-            </svg>
-          </span>
-          <input
-            type="text"
-            placeholder="Search help articles"
-            className="search-input w-full pl-16 py-3 border border-gray-600 bg-indigo-950 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-md"
-          />
-        </form>
+              Submit
+            </button>
+          </form>
+        </div>
+        <img className="w-98 p-2" src={image} alt="" />
       </section>
 
-      <section className="main flex justify-between">
-        <div className="menu w-1/4 p-6 bg-indigo-950 rounded-md">
-          <h1 className="menu-title text-xl font-semibold text-white mb-4">
-            Popular topics
-          </h1>
-          <nav className="menu-links">
-            <a
-              href="#"
-              className="menu-link text-blue-400 hover:text-white block mb-2"
-            >
-              Account
-            </a>
-            <a
-              href="#"
-              className="menu-link text-blue-400 hover:text-white block mb-2"
-            >
-              Billing
-            </a>
-            <a
-              href="#"
-              className="menu-link text-blue-400 hover:text-white block mb-2"
-            >
-              Privacy
-            </a>
-            <a
-              href="#"
-              className="menu-link text-blue-400 hover:text-white block mb-2"
-            >
-              Refunds
-            </a>
-            <a
-              href="#"
-              className="menu-link text-blue-400 hover:text-white block mb-2"
-            >
-              Verification
-            </a>
-            <a
-              href="#"
-              className="menu-link text-blue-400 hover:text-white block mb-2"
-            >
-              Integrations
-            </a>
-          </nav>
+      <section className="bg-dark-blue py-16 text-center px-12">
+        <div className="container mx-auto">
+          <h2 className="text-5xl font-extrabold mb-4">Common Questions</h2>
+          <p className="text-2xl mb-8">
+            Check out our frequently asked questions below.
+          </p>
 
-          <div className="support mt-6">
-            <h2 className="support-title text-xl font-semibold text-white">
-              Contact support
-            </h2>
-            <p className="support-text text-gray-400 mt-2">
-              24/7 help from our support staff
-            </p>
-            <a
-              href="#"
-              className="support-button mt-4 inline-block px-6 py-3 bg-blue-500 text-white rounded-md font-semibold hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-            >
-              Contact
-            </a>
-          </div>
-        </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* FAQ Cards */}
+            <div className="bg-white p-8 rounded-md shadow-lg text-blue-900">
+              <h3 className="text-2xl font-bold mb-2">
+                How do I contact support?
+              </h3>
+              <p>
+                You can contact our support team through the provided contact
+                form on our website or by emailing support@typeout.com.
+              </p>
+            </div>
 
-        <div className="content w-3/4">
-          <div className="content-item bg-indigo-950 p-6 rounded-md mb-4">
-            <h3 className="content-title text-xl font-semibold text-white">
-              Waiting period for first payout{" "}
-              <span className="badge badge-primary ml-2 bg-pink-500 text-white px-2 py-1 rounded-md">
-                Payment
-              </span>
-            </h3>
-            <p className="content-description text-gray-400 mt-2">
-              With so many different ways today to find information online, it
-              can sometimes be hard to know where to go to first.
-            </p>
-          </div>
+            <div className="bg-white p-8 rounded-md shadow-lg text-blue-900">
+              <h3 className="text-2xl font-bold mb-2">
+                Is technical assistance available?
+              </h3>
+              <p>
+                Absolutely! Our support team is equipped to provide technical
+                assistance for any issues you may encounter.
+              </p>
+            </div>
 
-          <div className="content-item bg-indigo-950 p-6 rounded-md mb-4">
-            <h3 className="content-title text-xl font-semibold text-white">
-              E Banks That Accept Us Casino Players{" "}
-              <span className="badge badge-secondary ml-2 bg-blue-500 text-white px-2 py-1 rounded-md">
-                Privacy
-              </span>
-            </h3>
-            <p className="content-description text-gray-400 mt-2">
-              With so many different ways today to find information online, it
-              can sometimes be hard to know where to go to first.
-            </p>
-          </div>
-
-          <div className="content-item bg-indigo-950 p-6 rounded-md">
-            <h3 className="content-title text-xl font-semibold text-white">
-              How To Protect Your Computer Very Useful Tips{" "}
-              <span className="badge badge-primary ml-2 bg-pink-500 text-white px-2 py-1 rounded-md">
-                API
-              </span>
-            </h3>
-            <p className="content-description text-gray-400 mt-2">
-              With so many different ways today to find information online, it
-              can sometimes be hard to know where to go to first.
-            </p>
+            <div className="bg-white p-8 rounded-md shadow-lg text-blue-900">
+              <h3 className="text-2xl font-bold mb-2">
+                How can I share feedback?
+              </h3>
+              <p>
+                We value your feedback! Feel free to share your thoughts and
+                suggestions by contacting our support team or using our feedback
+                form.
+              </p>
+            </div>
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 };
 
-export default SupportPage;
+export default ContactForm;

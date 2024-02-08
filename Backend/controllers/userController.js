@@ -64,6 +64,7 @@ exports.logInUser = async (req, res) => {
     });
   }
 };
+
 exports.authenticatedRoute = async (req, res) => {
   try {
     console.log(req.cookies.token);
@@ -143,6 +144,7 @@ exports.allUser = async (req, res) => {
     res.status(500).send(err);
   }
 };
+
 exports.findUser = async (req, res) => {
   try {
     const user = await User.findOne({ username: req.params.username });

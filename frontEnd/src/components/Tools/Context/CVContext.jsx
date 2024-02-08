@@ -29,8 +29,6 @@ const CVProvider = ({ children }) => {
       __v: 0,
     },
   ]);
-
-  const userId = "65c20e06142cd1aa329d1d13";
   const getCV = async (cvId) => {
     try {
       const cv = await axios.get(`http://localhost:2000/${userId}/cv/${cvId}`);
@@ -99,6 +97,7 @@ const CVProvider = ({ children }) => {
 
   const contextValues = {
     // varibales
+    userCV,
     // actions
     getCV,
     deleteCV,

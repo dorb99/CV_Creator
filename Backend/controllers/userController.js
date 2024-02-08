@@ -64,6 +64,7 @@ exports.logInUser = async (req, res) => {
     });
   }
 };
+
 exports.authenticatedRoute = async (req, res) => {
   try {
     console.log(req.cookies.token);
@@ -98,9 +99,11 @@ exports.logoutUser = (req, res) => {
 
 exports.patchUser = async (req, res) => {
   try {
-    const user = await User.findOneAndUpdate({ _id: req.params.id }, req.body, {
-      new: true,
-    }).exec();
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+    const user = await User.findOneAndUpdate(
+      { _id: req.params.id },
+      { ...req.body, password: hashedPassword }
+    ).exec();
     res.send(user);
   } catch (err) {
     res.status(500).send(err);
@@ -141,6 +144,7 @@ exports.allUser = async (req, res) => {
     res.status(500).send(err);
   }
 };
+
 exports.findUser = async (req, res) => {
   try {
     const user = await User.findOne({ username: req.params.username });

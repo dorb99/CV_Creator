@@ -5,7 +5,11 @@ const UserContext = createContext();
 axios.defaults.withCredentials = true;
 
 const UserProvider = ({ children }) => {
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
   const [CVs, setCVs] = useState([]);
   const [forgotClicked, setForgotClicked] = useState(0);
 
@@ -48,18 +52,18 @@ const UserProvider = ({ children }) => {
     }
   };
 
-  const editUserAction = async (editedUser) => {
-    const user = editedUser;
-    console.log(user);
-    try {
-      axios.patch(`${import.meta.env.VITE_FRONTENV}/user/${user.id}`, user);
-      then(console.log("User edited successfully"));
-    } catch {
-      (error) => {
-        console.log(error);
-      };
-    }
-  };
+    const editUserAction = async (editedUser) => {
+      const user = editedUser;
+      console.log(user);
+      try {
+        axios.patch(`${import.meta.env.VITE_FRONTENV}/user/${user.id}`, user);
+        then(console.log("User edited successfully"));
+      } catch {
+        (error) => {
+          console.log(error);
+        };
+      }
+    };
 
   const deleteUserAction = async (userId) => {
     const id = userId;

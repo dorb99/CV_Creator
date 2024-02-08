@@ -8,12 +8,14 @@ export default {
         2: 2,
         5: 5,
         6: 6,
+        infi: 1000,
       },
       width: {
         100: "200rem",
         99: "45rem",
         98: "30rem",
         5.4: "120%",
+        profile: "100vh",
       },
       height: {
         100: "400rem",
@@ -21,6 +23,7 @@ export default {
         98: "40rem",
         97: "29rem",
         0: "50vh",
+        0.8: "85vh",
       },
       colors: {
         "orange-1000": "#FFA500",

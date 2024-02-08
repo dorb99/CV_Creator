@@ -1,88 +1,93 @@
-import { useContext, useState, useRef } from "react";
-import { UserContext } from "../../Tools/Context/UserContext";
+import { useContext, useState } from "react";
+import Image from "../../../assets/form-img.jpg";
+import Inputs from "./Inputs";
 import { CVContext } from "../../Tools/Context/CVContext";
-import Image from "../../../assets/signin-img.jpg";
-import emailjs from "@emailjs/browser";
 
-function SignIn() {
-  const { createUserAction } = useContext(UserContext);
+function InfoForm() {
+  const { addCV } = useContext(CVContext);
+  const [inputValue, setInputValue] = useState({});
+
   const [cvInfo, setCVInfo] = useState({
-    education: {},
-    skills: {},
-    formerEmployments: {},
-    generalInfo: {},
-})
+    GeneralInfo: {},
+    EducationalHistory: {},
+    SkillsAndStrengths: {},
+    FormerExperience: {},
+    userId: "65c20e06142cd1aa329d1d13",
+    Template: 0,
+  });
+  const [step, setStep] = useState(1);
+  const headder = [
+    "Hi! Here we will build your CV step by step. Please try to be as elaborate as possible",
+    "General Information",
+    "Educational History",
+    "Skills and Strengths",
+    "Former Experience",
+  ];
+
+  const saveInfo = () => {
+    switch (step) {
+      case 2: {
+        const oldInfo = { ...cvInfo };
+        oldInfo.GeneralInfo = inputValue;
+        setCVInfo(oldInfo);
+        break;
+      }
+      case 3: {
+        const oldInfo = { ...cvInfo };
+        oldInfo.EducationalHistory = inputValue;
+        setCVInfo(oldInfo);
+        break;
+      }
+      case 4: {
+        const oldInfo = { ...cvInfo };
+        oldInfo.SkillsAndStrengths = inputValue;
+        setCVInfo(oldInfo);
+        break;
+      }
+      case 5: {
+        const oldInfo = { ...cvInfo };
+        oldInfo.FormerExperience = inputValue;
+        setCVInfo(oldInfo);
+        break;
+      }
+      case 6: {
+        const oldInfo = { ...cvInfo };
+        oldInfo.Template = 2;
+        setCVInfo(oldInfo);
+        break;
+      }
+      case 7: {
+        const oldInfo = { ...cvInfo };
+        oldInfo.userId = "65c20e06142cd1aa329d1d13";
+        console.log(oldInfo);
+        addCV(oldInfo);
+
+      }
+    }
+    setStep(step + 1);
+  };
 
   return (
     <div
       style={{ backgroundImage: `url(${Image})`, backgroundSize: "cover" }}
       className="bg-grey-300 w-screen min-h-screen flex justify-end items-center"
     >
-      <form
-        className="text-white bg-opacity-60 bg-slate-500 p-8 rounded-lg shadow-md w-99 h-full mr-40 flex-col justify-end items-center"
-        onSubmit={(e) => onSubmit(e)}
-      >
+      <form className="text-white bg-opacity-60 bg-slate-500 p-8 rounded-lg shadow-md w-99 h-full mr-40 flex-col justify-end items-center">
         <div className="text-2xl text-black-700 pb-5 py-4 w-full flex justify-center items-center">
-          Hi! Please fill the fields and we will create your CV in no time!
+          {headder[step]}
         </div>
-        <input
-          className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
-          type="text"
-          placeholder="UserName"
-          onChange={(e) => {
-            e.preventDefault();
-            const changedUser = newUser;
-            changedUser.username = e.target.value;
-            setNewUser(changedUser);
-          }}
-        />
-        <input
-          className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 text-white placeholder:text-white"
-          type="password"
-          placeholder="Password"
-          onChange={(e) => {
-            e.preventDefault();
-            const changedpass = checkingPassword;
-            changedpass[0] = e.target.value;
-            setCheckingPassword(changedpass);
-          }}
-        />
-        <input
-          className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 text-white placeholder:text-white"
-          type="password"
-          placeholder="Repeat Password"
-          onChange={(e) => {
-            e.preventDefault();
-            const changedpass = checkingPassword;
-            changedpass[1] = e.target.value;
-            setCheckingPassword(changedpass);
-          }}
-        />
-        <input
-          className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 text-white placeholder:text-white"
-          type="email"
-          placeholder="Email"
-          onChange={(e) => {
-            e.preventDefault();
-            const changedUser = newUser;
-            changedUser.email = e.target.value;
-            setNewUser(changedUser);
-          }}
-        />
-        <input
-          className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 text-white placeholder:text-white"
-          type="password"
-          placeholder="Received Code"
-          onChange={(e) => {
-            setCode((prevCode) => ({
-              ...prevCode,
-              receivedCode: e.target.value,
-            }));
-          }}
+        <Inputs
+          step={step}
+          inputValue={inputValue}
+          setInputValue={setInputValue}
         />
         <button
-          className="w-36 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
           type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            saveInfo();
+          }}
+          className="items-baseline w-fit px-4 py-2 bg-blue-300 text-white rounded-lg hover:bg-blue-500 flex items-center justify-center"
         >
           Submit
         </button>
@@ -91,4 +96,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default InfoForm;

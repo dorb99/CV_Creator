@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import HomePage from "./components/Pages/Home/HomePage";
 import UserHome from "./components/Pages/Home/UserHome";
 import Profile from "./components/Pages/User/MyProfile"
-import Profile from "./components/Pages/User/MyProfile"
 import NavBar from "./components/Tools/NavBar";
 import LogIn from "./components/Pages/User/LogIn";
 import SignUp from "./components/Pages/User/SignUp";

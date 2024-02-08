@@ -3,22 +3,10 @@ import DraggableLine from "../../Tools/DragLine";
 import leftImage from "../../../assets/bgg.jpg";
 import rightImage from "../../../assets/bg.jpg";
 import "../../../App.css";
-import { ReactTyped } from "react-typed";
 import image from "../../../assets/1.png";
 import image2 from "../../../assets/2.png";
 import image3 from "../../../assets/3.png";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import benefitImage from "../../../assets/benefitsImage.png";
 import { useInView } from "react-intersection-observer";
-import { FiCheckCircle } from "react-icons/fi";
-import {
-  BsFillPersonFill,
-  BsFillBriefcaseFill,
-  BsFillFileTextFill,
-  BsFillAwardFill,
-  BsFillGearFill,
-  BsFillEnvelopeFill,
-} from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 const testimonialsData = [

@@ -10,8 +10,11 @@ function Footer() {
           <img className="w-20 p-4" src={icon} alt="Logo" />
 
           <div className="ml-4">
-            <p className="text-lg font-semibold">Your Company Name</p>
+            <p className="text-lg font-semibold">TypedOut</p>
             <p className="text-sm">Creating Awesome CV Experience</p>
+            <p>
+              &copy; {new Date().getFullYear()} TypedOut. All rights reserved.
+            </p>
           </div>
         </div>
 

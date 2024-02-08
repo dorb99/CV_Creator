@@ -20,71 +20,34 @@ import {
   BsFillEnvelopeFill,
 } from "react-icons/bs";
 import { Link } from "react-router-dom";
-const typedStrings = [
+
+const testimonialsData = [
   {
-    text: "I Am A Web Developer",
-    bgColor: "bg-black",
-    textColor: "text-rose-500",
-    typeSpeed: 50,
-    fontFamily: "font-sans",
-    backSpeed: 50,
-    backDelay: 3800,
+    name: "John Coolman",
+    role: "CEO of Somethng Cool",
+    image:
+      "https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1700&q=80",
+    quote:
+      "This is a no-brainer if you want to take your business to the next level. If you are looking for the ultimate toolset, this is it!",
   },
   {
-    text: "I Am A UI/UX Enthusiast",
-    bgColor: "bg-yellow-600",
-    textColor: "text-buff",
-    typeSpeed: 50,
-    fontFamily: "font-dmsans",
-    backSpeed: 50,
-    backDelay: 4080,
+    name: "Jane Circles",
+    role: "CTO of The World",
+    image:
+      "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=2547&q=80",
+    quote:
+      "Thanks for creating this service. My life is so much easier. Thanks for making such a great product.",
   },
   {
-    text: "I Am A Passionate Designer",
-    bgColor: "bg-green-300",
-    textColor: "text-emerald-500",
-    typeSpeed: 50,
-    fontFamily: "font-sarif",
-    backSpeed: 50,
-    backDelay: 4520,
-  },
-  {
-    text: "I Am A Dedicated BackEnd Developer",
-    bgColor: "bg-cyan-600",
-    textColor: "text-cyan-600",
-    typeSpeed: 50,
-    fontFamily: "font-dmsans",
-    backSpeed: 50,
-    backDelay: 5550,
-  },
-  {
-    text: "I Am A Lifelong Learner",
-    bgColor: "bg-orange-1000",
-    textColor: "text-fuchsia-500",
-    typeSpeed: 50,
-    fontFamily: "font-dmsans",
-    backSpeed: 50,
-    backDelay: 4100,
+    name: "John Smithonkey",
+    role: "Creator of Monkey",
+    image:
+      "https://images.unsplash.com/photo-1545167622-3a6ac756afa4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1256&q=80",
+    quote:
+      "Packed with awesome content and exactly what I was looking for. I would highly recommend this to anyone.",
   },
 ];
-const benefitsStrings = [
-  {
-    icon: <BsFillPersonFill className="text-5xl" />,
-    text: "Create a professional and visually appealing personal profile to showcase your skills and experiences. Highlight your expertise, qualifications, and personal interests in a compelling manner that captivates employers and recruiters.",
-  },
-  {
-    icon: <BsFillBriefcaseFill className="text-5xl" />,
-    text: "Build a detailed work history section highlighting your employment journey and achievements. Provide a comprehensive overview of your professional experience, including job responsibilities, accomplishments, and milestones. Impress potential employers with a well-documented employment history.",
-  },
-  {
-    icon: <BsFillGearFill className="text-5xl" />,
-    text: "Customize the appearance and layout of your CV to match your personal style and preferences. Tailor your CV to reflect your unique personality and professional identity. Choose from a variety of customization options to create a CV that aligns with your personal brand.",
-  },
-  {
-    icon: <BsFillEnvelopeFill className="text-5xl" />,
-    text: "Easily share your CV with potential employers or download it in various formats. Share your CV effortlessly with employers by generating a shareable link or downloading it in popular formats like PDF or Word. Ensure that your CV reaches employers in the format that suits their preferences.",
-  },
-];
+
 const templateImages = [
   { id: 1, name: "Jino", image: image },
   { id: 2, name: "Rista", image: image2 },
@@ -93,6 +56,7 @@ const templateImages = [
   { id: 5, name: "Sketer", image: image2 },
   { id: 6, name: "Pico", image: image3 },
 ];
+
 const planOptions = [
   {
     title: "Basic Plan",
@@ -122,30 +86,10 @@ const comments = [
 function App() {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentTypedString, setCurrentTypedString] = useState(0);
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % comments.length);
   };
-
-  const prevSlide = () => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + comments.length) % comments.length
-    );
-  };
-  const selectPlan = (index) => {
-    setSelectedPlan(index);
-  };
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      handleNextString();
-    }, typedStrings[currentTypedString].backDelay);
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [currentTypedString]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -376,7 +320,27 @@ function App() {
             </div>
           </div>
         </section>
-
+        <>
+          <section className="w-screen min-h-screen p-6 flex items-center justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
+              {templateImages.map((template) => (
+                <div
+                  key={template.id}
+                  className="flex flex-col items-center p-4 border-2 border-gray-200 rounded-md w-80 h-80 transition-transform transform hover:scale-105 hover:shadow-lg relative overflow-hidden cursor-pointer"
+                >
+                  <img
+                    src={template.image}
+                    alt={template.name}
+                    className="w-full h-full object-cover rounded-md"
+                  />
+                  <p className="text-center absolute w-full text-indigo-600 tracking-widest font-bold text-4xl text- h-full flex justify-center items-center">
+                    <span> {template.name}</span>
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </>
         <section className="py-20 bg-gray-50">
           <div className="container items-center max-w-6xl px-4 mx-auto sm:px-20 md:px-32 lg:px-16">
             <div className="flex flex-wrap items-center -mx-3">
@@ -462,77 +426,97 @@ function App() {
         </section>
       </>
       <>
-        <div className="w-screen h-fit bg-white ">
-          <div className="container mx-auto py-16">
-            <div className="flex flex-wrap justify-center gap-8">
-              {planOptions.map((plan, index) => (
+        <section className="box-border py-8 leading-7 text-gray-900 bg-white border-0 border-gray-200 border-solid sm:py-12 md:py-16 lg:py-24">
+          <div className="box-border max-w-6xl px-4 pb-12 mx-auto border-solid sm:px-6 md:px-6 lg:px-4">
+            <div className="grid max-w-md mx-auto mt-6 overflow-hidden leading-7 text-gray-900 border border-b-4  border-blue-600 rounded-xl md:max-w-lg lg:max-w-none sm:mt-10 lg:grid-cols-3">
+              {planOptions.map((plan) => (
                 <div
-                  key={index}
-                  className={`w-full sm:w-1/2 md:w-1/2 xl:w-1/3 lg:w-1/4 mb-8 transition-all duration-300 ${
-                    selectedPlan === index
-                      ? "transform scale-105"
-                      : "transform scale-100"
-                  }`}
-                  onClick={() => selectPlan(index)}
+                  onClick={() => setSelectedPlan(plan.id)}
+                  key={plan.id}
+                  className="box-border px-4 py-8 mb-6 text-center bg-white border-solid lg:mb-0 sm:px-4 sm:py-8 md:px-8 md:py-12 lg:px-10"
                 >
-                  <div className="bg-gray-100 p-8 rounded-lg shadow-lg h-full">
-                    <h2 className="text-2xl font-semibold mb-4">
-                      {plan.title}
-                    </h2>
-                    <p className="text-gray-600 mb-4">{plan.description}</p>
-                    <div className="flex flex-col gap-2">
-                      {plan.features.map((feature, i) => (
-                        <div key={i} className="flex items-center">
-                          <FiCheckCircle className="text-rose-500 mr-2" />
-                          <p>{feature}</p>
-                        </div>
-                      ))}
-                    </div>
-                    <p className="text-3xl font-bold my-4">{plan.price}</p>
-                    <button className="bg-rose-500 text-white py-2 px-6 rounded-full hover:bg-rose-600 transition duration-300">
-                      Select Plan
-                    </button>
+                  <h3 className="m-0 text-2xl font-semibold leading-tight tracking-tight text-black border-0 border-solid sm:text-3xl md:text-4xl">
+                    {plan.title}
+                  </h3>
+                  <p className="mt-3 leading-7 text-gray-900 border-0 border-solid">
+                    {plan.description}
+                  </p>
+                  <div className="flex items-center justify-center mt-6 leading-7 text-gray-900 border-0 border-solid sm:mt-8">
+                    <p className="box-border m-0 text-6xl font-semibold leading-normal text-center border-0 border-gray-200">
+                      {plan.price}
+                    </p>
+                    <p className="box-border my-0 ml-4 mr-0 text-xs text-left border-0 border-gray-200">
+                      per user <span className="block">per month</span>
+                    </p>
                   </div>
+                  <button
+                    onClick={() => {
+                      setSelectedPlan(plan.id);
+                      console.log("Selected Plan:", selectedPlan);
+                    }}
+                    className={`inline-flex items-center justify-center w-full py-3 mt-6 font-sans text-sm leading-none text-center text-blue-600 no-underline border border-b-2 border-blue-600 rounded-md cursor-pointer hover:bg-blue-600 hover:border-blue-600 hover:text-white sm:text-base sm:mt-8 md:text-lg ${
+                      selectedPlan === plan.id
+                        ? "bg-indigo-700 text-slate-100"
+                        : "bg-white"
+                    }`}
+                  >
+                    A Cool Hover Effect
+                  </button>
                 </div>
               ))}
             </div>
           </div>
-        </div>
+        </section>
       </>
       <>
-        <div className="flex items-center justify-center h-fit bg-gray-100 p-20 bg-dark-blue ">
-          <div className="relative w-96 h-52 overflow-hidden bg-white rounded-md shadow-md">
-            {comments.map((comment, index) => (
-              <div
-                key={comment.id}
-                className={`absolute inset-0 transform transition-transform ${
-                  index === currentIndex
-                    ? "translate-x-0 opacity-100"
-                    : index < currentIndex
-                    ? "-translate-x-full opacity-0"
-                    : "translate-x-full opacity-0"
-                }`}
-              >
-                <div className="h-full flex flex-col justify-between p-6 bg-gradient-to-r from-teal-500 to-indigo-500 text-white rounded-lg">
-                  <p className="text-lg font-semibold">{comment.user}</p>
-                  <p className="text-sm">{comment.comment}</p>
-                </div>
+        <section className="flex items-center justify-center py-20 bg-white min-w-screen">
+          <div className="px-16 bg-white">
+            <div className="container flex flex-col items-start mx-auto lg:items-center">
+              <p className="relative flex items-start justify-start w-full text-lg font-bold tracking-wider text-purple-500 uppercase lg:justify-center lg:items-center">
+                Don't just take our word for it
+              </p>
+              <h2 className="relative flex items-start justify-start w-full max-w-3xl text-5xl font-bold lg:justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  className="absolute right-0 hidden w-12 h-12 -mt-2 -mr-16 text-gray-200 lg:inline-block"
+                  viewBox="0 0 975.036 975.036"
+                >
+                  <path d="M925.036 57.197h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.399 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l36 76c11.6 24.399 40.3 35.1 65.1 24.399 66.2-28.6 122.101-64.8 167.7-108.8 55.601-53.7 93.7-114.3 114.3-181.9 20.601-67.6 30.9-159.8 30.9-276.8v-239c0-27.599-22.401-50-50-50zM106.036 913.497c65.4-28.5 121-64.699 166.9-108.6 56.1-53.7 94.4-114.1 115-181.2 20.6-67.1 30.899-159.6 30.899-277.5v-239c0-27.6-22.399-50-50-50h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.4 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l35.9 75.8c11.601 24.399 40.501 35.2 65.301 24.399z"></path>
+                </svg>
+                See what the real people are saying
+              </h2>
+              <div className="block w-full h-0.5 max-w-lg mt-6 bg-purple-100 rounded-full"></div>
+              <div className="items-center justify-center w-full mt-12 mb-4 lg:flex">
+                {testimonialsData.map((testimonial, index) => (
+                  <div
+                    key={index}
+                    className="flex flex-col items-start justify-start w-full h-auto mb-12 lg:w-1/3 lg:mb-0"
+                  >
+                    <div className="flex items-center justify-center">
+                      <div className="w-16 h-16 mr-4 overflow-hidden bg-gray-200 rounded-full">
+                        <img
+                          src={testimonial.image}
+                          className="object-cover w-full h-full"
+                          alt={`Testimonial from ${testimonial.name}`}
+                        />
+                      </div>
+                      <div className="flex flex-col items-start justify-center">
+                        <h4 className="font-bold text-gray-800">
+                          {testimonial.name}
+                        </h4>
+                        <p className="text-gray-600">{testimonial.role}</p>
+                      </div>
+                    </div>
+                    <blockquote className="mt-8 text-lg text-gray-500">
+                      "{testimonial.quote}"
+                    </blockquote>
+                  </div>
+                ))}
               </div>
-            ))}
-            <button
-              onClick={prevSlide}
-              className="absolute top-1/2 left-2 p-3 transform -translate-y-1/2 bg-indigo-500 text-white rounded-full hover:bg-indigo-700 focus:outline-none ring-2 focus:border-blue-300 flex items-center transition-all ease-in-out "
-            >
-              <FaChevronLeft className="" />
-            </button>
-            <button
-              onClick={nextSlide}
-              className="absolute top-1/2 right-2 p-3 transform -translate-y-1/2 bg-indigo-500 text-white rounded-full hover:bg-indigo-700 focus:outline-none ring-2 focus:border-blue-300 flex items-center transition-all ease-in-out"
-            >
-              <FaChevronRight className="" />
-            </button>
+            </div>
           </div>
-        </div>
+        </section>
       </>
     </>
   );

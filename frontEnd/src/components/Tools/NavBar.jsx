@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import {UserContext} from "./Context/UserContext";
 import logo from "../../assets/logo.png";
 import WhiteLogo from "../../assets/whiteLogo.png";
 function NavBar() {
   const [isTop, setIsTop] = useState(true);
+  const { userInfo } = useContext(UserContext);
 
   const handleScroll = () => {
     setIsTop(window.scrollY === 0);

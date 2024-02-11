@@ -3,8 +3,10 @@ import { UserContext } from "../../Tools/Context/UserContext";
 import { CVContext } from "../../Tools/Context/CVContext";
 import Image from "../../../assets/signin-img.jpg";
 import emailjs from "@emailjs/browser";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
+  let navigate = useNavigate();
   const { createUserAction } = useContext(UserContext);
   const [checkingPassword, setCheckingPassword] = useState([]);
   const [code, setCode] = useState({ sendedCode: "", receivedCode: "" });
@@ -14,7 +16,6 @@ function SignIn() {
     email: "",
     cv: [],
   });
-  const form = useRef();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -46,6 +47,7 @@ function SignIn() {
             email: "",
             cv: [],
           });
+          navigate("/login");
           console.log("User created successfully");
         });
       } else {
@@ -57,36 +59,36 @@ function SignIn() {
   };
 
   const SendEmail = async () => {
-    console.log(form.current);
+    emailjs.init({
+      publicKey: "BNGfNzMrgKtNNRXOD",
+    });
+    let templateParams = {
+      username: newUser.username,
+      code: RandomCode(),
+      to_email: newUser.email,
+    };
     try {
-      RandomCode();
-      // emailjs
-      //   .sendForm("CV-Creator", "verification_q1w2e3", form.current, {
-      //     publicKey: "BNGfNzMrgKtNNRXOD",
-      //     username: newUser.name,
-      //     code: code.sendedCode,
-      //     to_email: newUser.email,
-      //   })
-      console.log("hi").then((response) => {
-        console.log("Email sended");
-      });
+      emailjs
+        .send("CV-Creator", "verification_q1w2e3", templateParams)
+        .then((response) => {
+          console.log("Email sent");
+        });
     } catch (err) {
-      (error) => {
-        console.log("FAILED...", error.text);
-      };
+      console.log("Error sending email:", err.text);
     }
   };
+
   function RandomCode() {
     let randomString = "";
     for (let i = 0; i < 6; i++) {
       const randomDigit = Math.floor(Math.random() * 10);
       randomString += randomDigit;
     }
-    console.log(randomString);
     setCode((prevCode) => ({
       ...prevCode,
       sendedCode: randomString,
     }));
+    return (randomString)
   }
 
   return (
@@ -95,7 +97,6 @@ function SignIn() {
       className="bg-grey-300 w-screen min-h-screen flex justify-end items-center"
     >
       <form
-        ref={form}
         className="text-white bg-opacity-60 bg-slate-500 p-8 rounded-lg shadow-md w-99 h-full mr-40 flex-col justify-end items-center"
         onSubmit={(e) => onSubmit(e)}
       >
@@ -109,7 +110,7 @@ function SignIn() {
           onChange={(e) => {
             e.preventDefault();
             const changedUser = newUser;
-            changedUser.username = e.target.value;
+            changedUser.username = e.target.value.trim();
             setNewUser(changedUser);
           }}
         />
@@ -120,7 +121,7 @@ function SignIn() {
           onChange={(e) => {
             e.preventDefault();
             const changedpass = checkingPassword;
-            changedpass[0] = e.target.value;
+            changedpass[0] = e.target.value.trim();
             setCheckingPassword(changedpass);
           }}
         />
@@ -131,7 +132,7 @@ function SignIn() {
           onChange={(e) => {
             e.preventDefault();
             const changedpass = checkingPassword;
-            changedpass[1] = e.target.value;
+            changedpass[1] = e.target.value.trim();
             setCheckingPassword(changedpass);
           }}
         />
@@ -142,7 +143,7 @@ function SignIn() {
           onChange={(e) => {
             e.preventDefault();
             const changedUser = newUser;
-            changedUser.email = e.target.value;
+            changedUser.email = e.target.value.trim();
             setNewUser(changedUser);
           }}
         />
@@ -154,7 +155,7 @@ function SignIn() {
             onChange={(e) => {
               setCode((prevCode) => ({
                 ...prevCode,
-                receivedCode: e.target.value,
+                receivedCode: e.target.value.trim(),
               }));
             }}
           />

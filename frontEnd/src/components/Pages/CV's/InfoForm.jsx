@@ -9,10 +9,10 @@ function InfoForm() {
   const { userInfo } = useContext(UserContext);
   const [inputValue, setInputValue] = useState({});
   const [cvInfo, setCVInfo] = useState({
-    GeneralInfo: {},
-    EducationalHistory: {},
-    SkillsAndStrengths: {},
-    FormerExperience: {},
+    GeneralInfo: [],
+    EducationalHistory: [],
+    SkillsAndStrengths: [],
+    FormerExperience: [],
     userId: userInfo?._id,
     Template: 0,
   });
@@ -76,7 +76,7 @@ function InfoForm() {
       className="bg-grey-300 w-screen min-h-screen flex justify-end items-center"
     >
       <form className="text-white bg-opacity-60 bg-slate-500 p-8 rounded-lg shadow-md w-99 h-full mr-40 flex-col justify-end items-center">
-        <div className="text-2xl text-black-700 pb-5 py-4 w-full flex justify-center items-center">
+        <div className="text-2xl text-black-700 pb-5 py-4 w-full flex justify-center items-center text-center">
           {headder[step]}
         </div>
         <Inputs

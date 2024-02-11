@@ -32,10 +32,11 @@ exports.addUser = async (req, res) => {
 };
 
 const jwt = require("jsonwebtoken");
-const secret = "secretkey";
+
 exports.logInUser = async (req, res) => {
   try {
     const { username, password } = req.body;
+    console.log(req.body)
     const user = await User.findOne({ username });
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({
@@ -43,12 +44,12 @@ exports.logInUser = async (req, res) => {
         massage: "Inccorect password ",
       });
     } else {
-      const token = jwt.sign({ _id: user._id }, secret, {
+      const token = jwt.sign({ _id: user._id }, process.env.SECRET, {
         expiresIn: "1h",
       });
       res.cookie("token", token, {
         httpOnly: true,
-        maxAge: 60000,
+        maxAge: 360000,
         sameSite: "strict",
       });
       res.status(200).send({
@@ -67,21 +68,19 @@ exports.logInUser = async (req, res) => {
 
 exports.authenticatedRoute = async (req, res) => {
   try {
-    console.log(req.cookies.token);
     const token = req.cookies.token;
-
     if (!token) {
       return res.status(401).json({ message: "No token provided." });
     }
-
-    const decoded = jwt.verify(token, secret);
+    const decoded = jwt.verify(token, process.env.SECRET);
+    console.log(decoded);
     const userData = await User.findOne({ _id: decoded._id });
-
     res.status(200).json(userData);
   } catch (error) {
     res.status(500).json({ message: error.message || "An error occurred." });
   }
 };
+
 
 exports.logoutUser = (req, res) => {
   try {

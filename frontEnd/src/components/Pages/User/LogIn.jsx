@@ -9,8 +9,6 @@ function LogIn() {
     logInAction,
     forgotClicked,
     setForgotClicked,
-    logOutAction,
-    userInfo,
   } = useContext(UserContext);
   const [logUser, setLogUser] = useState({ username: "", password: "" });
 

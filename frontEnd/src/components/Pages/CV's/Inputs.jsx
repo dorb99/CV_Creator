@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Inputs = ({ step, setStep, inputValue, setInputValue, cvInfo }) => {
-  const [timesInput, setTimesInput] = useState([1]);
+  const [timesInput, setTimesInput] = useState([]);
 
   const handleInputChange = (e, i, inputType) => {
     e.preventDefault();
@@ -11,18 +11,15 @@ const Inputs = ({ step, setStep, inputValue, setInputValue, cvInfo }) => {
     setInputValue(oldInfo);
   };
 
-  const handleAddInputField = () => {
+  const handleAddInputField = (e) => {
     event.preventDefault();
     setTimesInput([...timesInput, 1]);
   };
 
   useEffect(() => {
-    setTimesInput([1]);
-    const obj = { ...inputValue };
-    Object.keys(obj).forEach((key) => {
-      delete obj[key];
-    });
+    const obj = {};
     setInputValue(obj);
+    setTimesInput([1]);
   }, [step]);
 
   return (
@@ -31,41 +28,42 @@ const Inputs = ({ step, setStep, inputValue, setInputValue, cvInfo }) => {
         // General Info
         <>
           <input
-            required
+            id="GeneralInfo_1"
             className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
             type="text"
             placeholder="firstname"
             onChange={(e) => handleInputChange(e, 1, "firstname")}
           />
           <input
-            required
+            id="GeneralInfo_2"
             className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
             type="text"
             placeholder="lastname"
             onChange={(e) => handleInputChange(e, 2, "lastname")}
           />
           <input
-            required
+            id="GeneralInfo_3"
             className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
             type="text"
             placeholder="work email"
             onChange={(e) => handleInputChange(e, 3, "work_email")}
           />
           <input
-            required
+            id="GeneralInfo_4"
             className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
             type="text"
             placeholder="phone number"
             onChange={(e) => handleInputChange(e, 4, "phone_number")}
           />
           <input
-            required
+            id="GeneralInfo_5"
             className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
             type="text"
             placeholder="profession"
             onChange={(e) => handleInputChange(e, 5, "profession")}
           />
           <textarea
+            id="GeneralInfo_6"
             className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
             placeholder="Please tell us about yourself as much as you can"
             onChange={(e) => handleInputChange(e, 6, "about_me")}
@@ -77,10 +75,8 @@ const Inputs = ({ step, setStep, inputValue, setInputValue, cvInfo }) => {
           {timesInput.map((_, i) => (
             <div key={i}>
               <input
-                required
-                defaultValue={
-                  cvInfo?.EducationalHistory?.[`education_${i}`] || ""
-                }
+                defaultValue={undefined}
+                id={`education_${i}`}
                 className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
                 type="text"
                 placeholder="educational history"
@@ -90,7 +86,7 @@ const Inputs = ({ step, setStep, inputValue, setInputValue, cvInfo }) => {
           ))}
           <button
             className="mb-5 items-baseline w-36 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
-            onClick={handleAddInputField}
+            onClick={(e) => handleAddInputField(e)}
           >
             Add an input field
           </button>
@@ -98,10 +94,12 @@ const Inputs = ({ step, setStep, inputValue, setInputValue, cvInfo }) => {
       ) : step === 3 ? (
         // Skills And Strengths Info
         <>
-          {timesInput.map((i) => (
+          {timesInput.map((_, i) => (
             <div key={i}>
+              {" "}
               <input
-                required
+                defaultValue={undefined}
+                id={`SkillsAndStrengths_${i}`}
                 className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
                 type="text"
                 placeholder="Skills And Strengths"
@@ -111,7 +109,7 @@ const Inputs = ({ step, setStep, inputValue, setInputValue, cvInfo }) => {
           ))}
           <button
             className="mb-5 items-baseline w-36 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
-            onClick={handleAddInputField}
+            onClick={(e) => handleAddInputField(e)}
           >
             Add an input field
           </button>
@@ -121,8 +119,10 @@ const Inputs = ({ step, setStep, inputValue, setInputValue, cvInfo }) => {
         <>
           {timesInput.map((_, i) => (
             <div key={i}>
+              {" "}
               <input
-                required
+                defaultValue={undefined}
+                id={`FormerExperience_${i}`}
                 className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
                 type="text"
                 placeholder="Former Experience"
@@ -132,7 +132,7 @@ const Inputs = ({ step, setStep, inputValue, setInputValue, cvInfo }) => {
           ))}
           <button
             className="mb-5 items-baseline w-36 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
-            onClick={handleAddInputField}
+            onClick={(e) => handleAddInputField(e)}
           >
             Add an input field
           </button>

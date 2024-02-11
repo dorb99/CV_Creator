@@ -25,7 +25,7 @@ const CVProvider = ({ children }) => {
         "Former Experience_0": "efss",
       },
       Template: "2",
-      userInfo: "65c20e06142cd1aa329d1d13",
+      userId: "65c20e06142cd1aa329d1d13",
       timestamp: "2024-02-08T08:22:24.130Z",
       __v: 0,
     },

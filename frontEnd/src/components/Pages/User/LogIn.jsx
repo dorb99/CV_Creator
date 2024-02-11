@@ -42,7 +42,7 @@ function LogIn() {
               type="text"
               placeholder="Username"
               onChange={(e) =>
-                setLogUser({ ...logUser, username: e.target.value })
+                setLogUser({ ...logUser, username: e.target.value.trim() })
               }
             />
             <input
@@ -50,7 +50,7 @@ function LogIn() {
               type="password"
               placeholder="Password"
               onChange={(e) =>
-                setLogUser({ ...logUser, password: e.target.value })
+                setLogUser({ ...logUser, password: e.target.value.trim() })
               }
             />
             <div className="flex items-center justify-evenly w-full">

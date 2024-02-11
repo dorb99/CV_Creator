@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./components/Pages/Home/HomePage";
 import UserHome from "./components/Pages/Home/UserHome";
 import Profile from "./components/Pages/User/MyProfile";
-import Profile from "./components/Pages/User/MyProfile";
 import NavBar from "./components/Tools/NavBar";
 import LogIn from "./components/Pages/User/LogIn";
 import SignUp from "./components/Pages/User/SignUp";
@@ -14,6 +13,7 @@ import Download from "./components/Pages/CV's/Download";
 import InfoForm from "./components/Pages/CV's/InfoForm";
 import Template from "./components/Pages/CV's/Template";
 import Edit from "./components/Pages/CV's/Edit";
+
 function App() {
   return (
     <div>

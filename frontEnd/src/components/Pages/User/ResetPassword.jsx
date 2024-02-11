@@ -13,7 +13,7 @@ function ResetPassword() {
     editUserAction,
   } = useContext(UserContext);
   const [newPassword, setNewPassword] = useState({ first: "", second: "" });
-  const [resetInfo, setResetInfo] = useState({
+  const resetInfo = useRef({
     name: "",
     code: RandomCode(),
     receivedCode: "",
@@ -25,15 +25,17 @@ function ResetPassword() {
     try {
       setForgotClicked(2);
       await getUser(resetInfo.name);
+      const username = resetInfo.current.name;
+      const code = resetInfo.current.code;
       emailjs
         .sendForm("CV-Creator", "Reset_q1w2e3", form.current, {
           publicKey: "BNGfNzMrgKtNNRXOD",
-          username: resetInfo.name,
-          code: resetInfo.code,
+          username: username,
+          code: code,
           to_email: userInfo.email,
         })
         .then((response) => {
-          console.log("Email sended");
+          console.log("Email sended", response);
         });
     } catch (err) {
       (error) => {
@@ -79,46 +81,46 @@ function ResetPassword() {
   return (
     <>
       <form ref={form}>
-      <div className="text-3xl text-black-700 pb-5 py-4 w-full flex justify-center items-center">
-              Please follow the steps
-            </div>
+        <div className="text-3xl text-black-700 pb-5 py-4 w-full flex justify-center items-center">
+          Please follow the steps
+        </div>
         {forgotClicked === 1 ? (
           <>
+            {/* Username input */}
             <input
               className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
               type="text"
               name="username"
-              value={resetInfo.name}
+              value={resetInfo.current.name}
               placeholder="Your username"
               onChange={(e) => {
-                setResetInfo((prevInfo) => ({
-                  ...prevInfo,
-                  name: e.target.value,
-                }));
+                resetInfo.current.name = e.target.value;
               }}
             />
+            {/* Hidden code input */}
             <input
               type="text"
               style={{ display: "none" }}
-              defaultValue={resetInfo.code}
+              value={resetInfo.current.code}
               id="code"
               name="code"
             />
           </>
         ) : forgotClicked === 2 ? (
-          <input
-            className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
-            type="password"
-            placeholder="Your code..."
-            onChange={(e) => {
-              setResetInfo((prevInfo) => ({
-                ...prevInfo,
-                receivedCode: e.target.value,
-              }));
-            }}
-          />
+          <>
+            {/* Received code input */}
+            <input
+              className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
+              type="password"
+              placeholder="Your code..."
+              onChange={(e) => {
+                resetInfo.current.receivedCode = e.target.value;
+              }}
+            />
+          </>
         ) : (
           <>
+            {/* New Password input */}
             <input
               className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
               type="password"
@@ -131,6 +133,7 @@ function ResetPassword() {
                 }));
               }}
             />
+            {/* Repeat Password input */}
             <input
               className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
               type="password"
@@ -146,6 +149,7 @@ function ResetPassword() {
           </>
         )}
         <div className="flex items-center justify-evenly w-full">
+          {/* Action button */}
           <button
             className="items-baseline w-fit px-4 py-2 bg-blue-300 text-white rounded-lg hover:bg-blue-500"
             type="submit"
@@ -163,6 +167,7 @@ function ResetPassword() {
               ? "Send reset code"
               : "Done!"}
           </button>
+          {/* Go back button */}
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -176,6 +181,7 @@ function ResetPassword() {
       </form>
     </>
   );
+  
 }
 
 export default ResetPassword;

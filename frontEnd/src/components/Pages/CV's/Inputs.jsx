@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-const Inputs = ({ step, inputValue, setInputValue }) => {
+const Inputs = ({ step, setStep, inputValue, setInputValue, cvInfo }) => {
   const [timesInput, setTimesInput] = useState([1]);
 
   const handleInputChange = (e, i, inputType) => {
@@ -26,90 +27,167 @@ const Inputs = ({ step, inputValue, setInputValue }) => {
 
   return (
     <>
-      {step === 1 ? null : step === 2 ? (
-        //General Info
+      {step === 0 ? null : step === 1 ? (
+        // General Info
         <>
           <input
+            required
             className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
             type="text"
-            placeholder="Your name"
-            onChange={(e) => handleInputChange(e, 1, "name")}
+            placeholder="firstname"
+            onChange={(e) => handleInputChange(e, 1, "firstname")}
           />
           <input
+            required
             className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
             type="text"
-            placeholder="your age"
-            onChange={(e) => handleInputChange(e, 2, "age")}
+            placeholder="lastname"
+            onChange={(e) => handleInputChange(e, 2, "lastname")}
+          />
+          <input
+            required
+            className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
+            type="text"
+            placeholder="work email"
+            onChange={(e) => handleInputChange(e, 3, "work_email")}
+          />
+          <input
+            required
+            className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
+            type="text"
+            placeholder="phone number"
+            onChange={(e) => handleInputChange(e, 4, "phone_number")}
+          />
+          <input
+            required
+            className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
+            type="text"
+            placeholder="profession"
+            onChange={(e) => handleInputChange(e, 5, "profession")}
+          />
+          <textarea
+            className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
+            placeholder="Please tell us about yourself as much as you can"
+            onChange={(e) => handleInputChange(e, 6, "about_me")}
           />
         </>
-      ) : step === 3 ? (
-        //Educational Info
+      ) : step === 2 ? (
+        // Educational Info
         <>
           {timesInput.map((_, i) => (
-            <div>
+            <div key={i}>
               <input
+                required
+                defaultValue={
+                  cvInfo?.EducationalHistory?.[`education_${i}`] || ""
+                }
                 className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
                 type="text"
-                key={i}
                 placeholder="educational history"
                 onChange={(e) => handleInputChange(e, i, "education")}
               />
             </div>
           ))}
           <button
-            className="items-baseline w-36 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
+            className="mb-5 items-baseline w-36 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
+            onClick={handleAddInputField}
+          >
+            Add an input field
+          </button>
+        </>
+      ) : step === 3 ? (
+        // Skills And Strengths Info
+        <>
+          {timesInput.map((i) => (
+            <div key={i}>
+              <input
+                required
+                className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
+                type="text"
+                placeholder="Skills And Strengths"
+                onChange={(e) => handleInputChange(e, i, "SkillsAndStrengths")}
+              />
+            </div>
+          ))}
+          <button
+            className="mb-5 items-baseline w-36 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
             onClick={handleAddInputField}
           >
             Add an input field
           </button>
         </>
       ) : step === 4 ? (
-        //Skills And Strengths Info
+        // Former Experience Info
         <>
-          {timesInput.map((i) => (
-            <div>
+          {timesInput.map((_, i) => (
+            <div key={i}>
               <input
+                required
                 className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
                 type="text"
-                key={i}
-                placeholder="Skills And Strengths"
-                onChange={(e) =>
-                  handleInputChange(e, i, "Skills And Strengths")
-                }
+                placeholder="Former Experience"
+                onChange={(e) => handleInputChange(e, i, "FormerExperience")}
               />
             </div>
           ))}
           <button
-            className="items-baseline w-36 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
+            className="mb-5 items-baseline w-36 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
             onClick={handleAddInputField}
           >
             Add an input field
           </button>
         </>
       ) : step === 5 ? (
-        //Former Experience Info
-        <>
-          {timesInput.map((_, i) => (
-            <div>
-              <input
-                className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
-                type="text"
-                key={i}
-                placeholder="Former Experience"
-                onChange={(e) => handleInputChange(e, i, "Former Experience")}
-              />
-            </div>
-          ))}
+        <div className="flex mb-8 justify-center w-full">
           <button
-            className="items-baseline w-36 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
-            onClick={handleAddInputField}
+            className="m-5 items-baseline w-20 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
+            onClick={(e) => {
+              e.preventDefault(), setInputValue(1);
+            }}
           >
-            Add an input field
+            1
           </button>
-        </>
+          <button
+            className="m-5 items-baseline w-20 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
+            onClick={(e) => {
+              e.preventDefault(), setInputValue(2);
+            }}
+          >
+            2
+          </button>
+          <button
+            className="m-5 items-baseline w-20 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
+            onClick={(e) => {
+              e.preventDefault(), setInputValue(3);
+            }}
+          >
+            3
+          </button>
+        </div>
       ) : step === 6 ? (
-        <div>templates</div>
-      ) : <div>finished! click submit to save the CV!</div>}
+        <div>
+          Here is your finished CV. Click submit to save the CV, or go back and
+          change something
+        </div>
+      ) : (
+        <div className="flex justify-center items-center p-3 mb-8 space-x-4">
+          <button
+            className="items-baseline w-fit px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-color-brown"
+            onClick={(e) => {
+              e.preventDefault(), setStep(0);
+            }}
+          >
+            Make another CV!
+          </button>
+          <Link
+            className="items-baseline w-fit px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-color-brown"
+            onClick={() => setStep(0)}
+            to={"/member"}
+          >
+            Go back to UserHome
+          </Link>
+        </div>
+      )}
     </>
   );
 };

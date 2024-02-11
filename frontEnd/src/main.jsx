@@ -7,13 +7,13 @@ import { UserProvider } from "./components/Tools/Context/UserContext.jsx";
 import { CVProvider } from "./components/Tools/Context/CVContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <UserProvider>
-    <CVProvider>
-      <BrowserRouter>
+  <BrowserRouter>
+    <UserProvider>
+      <CVProvider>
         <React.StrictMode>
           <App />
         </React.StrictMode>
-      </BrowserRouter>
-    </CVProvider>
-  </UserProvider>
+      </CVProvider>
+    </UserProvider>
+  </BrowserRouter>
 );

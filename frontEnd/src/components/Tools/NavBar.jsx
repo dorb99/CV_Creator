@@ -36,6 +36,7 @@ function NavBar() {
           : "bg-opacity-70 bg-black backdrop-blur-sm text-white tracking-widest"
       } transition-all duration-300 `}
     >
+      <button onClick={()=>console.log(userInfo)}>click</button>
       <div>
         <Link to="/">
           <img

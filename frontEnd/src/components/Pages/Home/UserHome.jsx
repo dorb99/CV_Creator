@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { FiEdit, FiFileText } from "react-icons/fi";
+import { CVContext } from "../../Tools/Context/CVContext";
+import { Link, useNavigate } from "react-router-dom";
 
 const UserHome = () => {
+  const { selectedCV, setSelectedCV, userCV, getCV } = useContext(CVContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    console.log(selectedCV);
+  }, [selectedCV]);
+
+  const handleCVClick = (cvId) => {
+    localStorage.setItem("selectedCV", JSON.stringify(cvId));
+    navigate("/edit");
+    setSelectedCV(cvId);
+    console.log(cvId);
+  };
+
   return (
     <div className="bg-dark-blue min-h-screen p-20">
-      <div className="container mx-auto p-8 ">
+      <div className="container mx-auto p-8">
         <div className="bg-white p-8 rounded-lg shadow-md bg-opacity-100">
           <div className="flex items-center justify-start mb-8">
             <div className="rounded-full overflow-hidden w-16 h-16 bg-gray-300 mr-4"></div>
@@ -28,13 +43,11 @@ const UserHome = () => {
             Recent CV's
           </div>
           <div className="flex overflow-x-scroll justify-between mx-6 space-x-12">
-            <div className="w-32 h-32 bg-gray-800 rounded-lg flex-shrink-0 mx-12"></div>
-            <div className="w-32 h-32 bg-gray-800 rounded-lg flex-shrink-0 mx-12"></div>
-            <div className="w-32 h-32 bg-gray-800 rounded-lg flex-shrink-0 mx-12"></div>
-            <div className="w-32 h-32 bg-gray-800 rounded-lg flex-shrink-0 mx-12"></div>
-            <div className="w-32 h-32 bg-gray-800 rounded-lg flex-shrink-0 mx-12"></div>
-            <div className="w-32 h-32 bg-gray-800 rounded-lg flex-shrink-0 mx-12"></div>
-            <div className="w-32 h-32 bg-gray-800 rounded-lg flex-shrink-0 mx-12"></div>
+            {userCV.map((cv, index) => (
+              <li key={index} onClick={() => handleCVClick(cv)}>
+                {cv._id}
+              </li>
+            ))}
           </div>
         </div>
       </div>

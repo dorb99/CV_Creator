@@ -49,20 +49,22 @@ const planOptions = [
   {
     title: "Basic Plan",
     description: "Perfect for small projects",
-    features: ["Feature 1", "Feature 2"],
-    price: "$19",
+    features: ["Every Feature", "But There Is A better Offer"],
+    price: "$1119",
   },
   {
     title: "Standard Plan",
     description: "Great for medium-sized projects",
-    features: ["Feature 1", "Feature 2", "Feature 3"],
-    price: "$49",
+    features: ["Every Feature ++", "But Wait Is That A Better Offer"],
+    price: "$5649",
   },
   {
     title: "Premium Plan",
     description: "For large and complex projects",
-    features: ["Feature 1", "Feature 2", "Feature 3", "Feature 4"],
-    price: "$99",
+    features: [
+     "Every Feature++2","Yes This Is The Best Offer"
+    ],
+    price: "$23699",
   },
 ];
 const comments = [
@@ -427,7 +429,11 @@ function App() {
                     {plan.title}
                   </h3>
                   <p className="mt-3 leading-7 text-gray-900 border-0 border-solid">
-                    {plan.description}
+                    <ul>
+                      {plan.features.map((item, index) => (
+                        <li key={index}>{item}</li>
+                      ))}
+                    </ul>
                   </p>
                   <div className="flex items-center justify-center mt-6 leading-7 text-gray-900 border-0 border-solid sm:mt-8">
                     <p className="box-border m-0 text-6xl font-semibold leading-normal text-center border-0 border-gray-200">

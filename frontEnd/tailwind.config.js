@@ -74,6 +74,9 @@ export default {
       borderWidth: {
         1: "1px",
       },
+      fontSize: {
+        "3vh": "3vh",
+      },
       // backgroundSize: {
       //  25 : "25rem",
       // }

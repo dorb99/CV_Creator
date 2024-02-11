@@ -167,7 +167,7 @@ const Template = ({ customization }) => {
               style={{
                 borderColor: customization.colorBorder,
               }}
-              className="h-16 border-l-2 border-black"
+              className="h-16 border-l-2 border-black text-3vh"
             ></div>
             <div className="w-96">
               <div className="w-fit h-fit my-3 text-3xl flex flex-col justify-start">

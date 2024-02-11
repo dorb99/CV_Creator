@@ -39,7 +39,6 @@ function SignIn() {
   const CreateUser = async () => {
     try {
       if (code.sendedCode === code.receivedCode) {
-        console.log(newUser);
         await createUserAction(newUser).then(() => {
           setNewUser({
             username: "",

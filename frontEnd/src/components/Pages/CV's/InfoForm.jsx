@@ -2,66 +2,69 @@ import { useContext, useState } from "react";
 import Image from "../../../assets/form-img.jpg";
 import Inputs from "./Inputs";
 import { CVContext } from "../../Tools/Context/CVContext";
+import { UserContext } from "../../Tools/Context/UserContext";
 
 function InfoForm() {
   const { addCV } = useContext(CVContext);
+  const { userInfo } = useContext(UserContext);
   const [inputValue, setInputValue] = useState({});
-
   const [cvInfo, setCVInfo] = useState({
     GeneralInfo: {},
     EducationalHistory: {},
     SkillsAndStrengths: {},
     FormerExperience: {},
-    userId: "65c20e06142cd1aa329d1d13",
+    userId: userInfo?._id,
     Template: 0,
   });
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
   const headder = [
     "Hi! Here we will build your CV step by step. Please try to be as elaborate as possible",
     "General Information",
     "Educational History",
     "Skills and Strengths",
     "Former Experience",
+    "Choose Template",
+    "Finish making your CV!",
   ];
 
   const saveInfo = () => {
     switch (step) {
-      case 2: {
+      case 1: {
         const oldInfo = { ...cvInfo };
         oldInfo.GeneralInfo = inputValue;
         setCVInfo(oldInfo);
         break;
       }
-      case 3: {
+      case 2: {
         const oldInfo = { ...cvInfo };
         oldInfo.EducationalHistory = inputValue;
         setCVInfo(oldInfo);
         break;
       }
-      case 4: {
+      case 3: {
         const oldInfo = { ...cvInfo };
         oldInfo.SkillsAndStrengths = inputValue;
         setCVInfo(oldInfo);
         break;
       }
-      case 5: {
+      case 4: {
         const oldInfo = { ...cvInfo };
         oldInfo.FormerExperience = inputValue;
         setCVInfo(oldInfo);
         break;
       }
-      case 6: {
+      case 5: {
         const oldInfo = { ...cvInfo };
-        oldInfo.Template = 2;
+        oldInfo.Template = inputValue;
         setCVInfo(oldInfo);
         break;
       }
-      case 7: {
+      case 6: {
         const oldInfo = { ...cvInfo };
-        oldInfo.userId = "65c20e06142cd1aa329d1d13";
+        oldInfo.userId = userInfo?._id;
         console.log(oldInfo);
         addCV(oldInfo);
-
+        setStep(-1);
       }
     }
     setStep(step + 1);
@@ -80,17 +83,38 @@ function InfoForm() {
           step={step}
           inputValue={inputValue}
           setInputValue={setInputValue}
+          setStep={setStep}
+          cvInfo={cvInfo}
         />
-        <button
-          type="submit"
-          onClick={(e) => {
-            e.preventDefault();
-            saveInfo();
-          }}
-          className="items-baseline w-fit px-4 py-2 bg-blue-300 text-white rounded-lg hover:bg-blue-500 flex items-center justify-center"
-        >
-          Submit
-        </button>
+        {step !== 7 ? (
+          step === 0 ? (
+            <div className="flex justify-end items-center p-3 mb-8 space-x-4">
+              <button
+                type="submit"
+                onClick={(e) => {
+                  e.preventDefault();
+                  saveInfo();
+                }}
+                className="w-fit px-4 py-2 bg-stone-500 text-white rounded-lg hover:bg-neutral-600 flex items-center justify-center"
+              >
+                Start
+              </button>
+            </div>
+          ) : (
+            <div className="flex justify-end items-center p-3 mb-8 space-x-4">
+              <button
+                type="submit"
+                onClick={(e) => {
+                  e.preventDefault();
+                  saveInfo();
+                }}
+                className="w-fit px-4 py-2 bg-stone-500 text-white rounded-lg hover:bg-neutral-600 flex items-center justify-center"
+              >
+                Submit
+              </button>
+            </div>
+          )
+        ) : null}
       </form>
     </div>
   );

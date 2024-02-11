@@ -12,11 +12,16 @@ exports.allCV = async (req, res) => {
 
 exports.addCV = async (req, res) => {
   try {
+    const userId = req.body.userId;
     const createdCV = await CV.create(req.body);
-    await User.findByIdAndUpdate(req.body.userid, {
-      $push: { cv: createdCV._id },
+    const cvid = createdCV._id;
+    User.findOneAndUpdate(
+      { _id: userId },
+      { $push: { cv: cvid } },
+      { new: true }
+    ).then((result) => {
+      console.log("CV added successfully:", result, createdCV);
     });
-    res.send(createdCV);
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -33,7 +38,9 @@ exports.getCV = async (req, res) => {
 
 exports.patchCV = async (req, res) => {
   try {
-    const cv = await CV.findByIdAndUpdate(req.params.cvid, req.body, { new: true }).exec();
+    const cv = await CV.findByIdAndUpdate(req.params.cvid, req.body, {
+      new: true,
+    }).exec();
     res.send(cv);
   } catch (err) {
     res.send(err);

@@ -25,6 +25,27 @@ const CVProvider = ({ children }) => {
         "Former Experience_0": "efss",
       },
       Template: "2",
+      userInfo: "65c20e06142cd1aa329d1d13",
+      timestamp: "2024-02-08T08:22:24.130Z",
+      __v: 0,
+    },
+    {
+      _id: "65c49149c26e6ddda3feae21",
+      GeneralInfo: {
+        name_1: "erdwardf",
+        age_2: "faef",
+      },
+      EducationalHistory: {
+        education_0: "fesaf",
+        education_1: "fesafsa",
+      },
+      SkillsAndStrengths: {
+        "Skills And Strengths_1": "fesaf",
+      },
+      FormerExperience: {
+        "Former Experience_0": "efss",
+      },
+      Template: "2",
       userId: "65c20e06142cd1aa329d1d13",
       timestamp: "2024-02-08T08:22:24.130Z",
       __v: 0,
@@ -53,7 +74,9 @@ const CVProvider = ({ children }) => {
   ]);
   const getCV = async (cvId) => {
     try {
-      const cv = await axios.get(`http://localhost:2000/${userId}/cv/${cvId}`);
+      const cv = await axios.get(
+        `http://localhost:2000/${userInfo?._id}/cv/${cvId}`
+      );
       console.log(cv.data);
     } catch {
       (error) => {
@@ -64,7 +87,7 @@ const CVProvider = ({ children }) => {
   const deleteCV = async (cvId) => {
     try {
       git;
-      await axios.delete(`http://localhost:2000/${userId}/cv/${cvId}`);
+      await axios.delete(`http://localhost:2000/${userInfo?._id}/cv/${cvId}`);
 
       then(() => {
         console.log("CV deleted successfully");
@@ -72,7 +95,6 @@ const CVProvider = ({ children }) => {
         const indexToRemove = newUserInfo.CV.indexOf(cvId);
         array.splice(indexToRemove, 1);
         setUserInfo(newUserInfo);
-        console.log(newUserInfo);
       });
     } catch {
       (error) => {
@@ -80,10 +102,11 @@ const CVProvider = ({ children }) => {
       };
     }
   };
+
   const editCV = async (newCV) => {
     try {
       const cv = await axios.patch(
-        `http://localhost:2000/${userId}/cv/${newCV._id}`,
+        `http://localhost:2000/${userInfo?._id}/cv/${newCV._id}`,
         newCV
       );
       console.log(cv.data);
@@ -93,19 +116,23 @@ const CVProvider = ({ children }) => {
       };
     }
   };
+
   const addCV = async (newCV) => {
     try {
-      const cv = await axios.post(`http://localhost:2000/${userId}/cv`, newCV);
-      console.log(cv.data);
+      const cv = await axios.post(
+        `http://localhost:2000/${userInfo?._id}/cv`,
+        newCV
+      );
     } catch {
       (error) => {
         console.log(error);
       };
     }
   };
+
   const allCVs = async () => {
     try {
-      const cvs = await axios.get(`http://localhost:2000/${userId}/cv`);
+      const cvs = await axios.get(`http://localhost:2000/${userInfo?._id}/cv`);
       console.log(cvs.data);
     } catch {
       (error) => {
@@ -113,9 +140,6 @@ const CVProvider = ({ children }) => {
       };
     }
   };
-  useEffect(() => {
-    const userId = userInfo._id;
-  }, [userInfo]);
 
   const contextValues = {
     // varibales

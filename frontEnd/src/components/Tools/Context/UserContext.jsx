@@ -1,5 +1,6 @@
 import axios from "axios";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 const UserContext = createContext();
 
 axios.defaults.withCredentials = true;
@@ -28,10 +29,25 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  const Authenticate = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_FRONTENV}/authenticate`
+      );
+      if (response.status === 200) setUserInfo(response.data);
+    } catch (error) {
+      navigate("/");
+      console.log(error);
+    }
+  };
+
   const createUserAction = async (newUser) => {
     try {
-      await axios.post(`${import.meta.env.VITE_FRONTENV}`, newUser);
-      setUserInfo(newUser);
+      const response = await axios.post(
+        `${import.meta.env.VITE_FRONTENV}`,
+        newUser
+      );
+      navigate("/login");
     } catch {
       (error) => {
         console.log(error);
@@ -40,14 +56,13 @@ const UserProvider = ({ children }) => {
   };
 
   const logInAction = async (loginInfo) => {
-    console.log(import.meta.env.VITE_FRONTENV);
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_FRONTENV}/login`,
         loginInfo
       );
-      const checkedUser = response.data.user;
-      setUserInfo(checkedUser);
+      setUserInfo(response.data.user);
+      navigate("/member");
     } catch {
       (err) => console.log(err);
     }
@@ -55,7 +70,6 @@ const UserProvider = ({ children }) => {
 
   const editUserAction = async (editedUser) => {
     const user = editedUser;
-    console.log(user);
     try {
       axios.patch(`${import.meta.env.VITE_FRONTENV}/user/${user.id}`, user);
       then(console.log("User edited successfully"));
@@ -92,7 +106,7 @@ const UserProvider = ({ children }) => {
   const getUser = async (username) => {
     try {
       const user = await axios.get(
-        `${import.meta.env.VITE_FRONTENV}/${username}`
+        `${import.meta.env.VITE_FRONTENV}/find/${username}`
       );
       setUserInfo(user.data);
     } catch {
@@ -114,6 +128,11 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    if (userInfo === undefined)
+    Authenticate();
+  }, []);
+  
   const contextValues = {
     // varibales
     userInfo,

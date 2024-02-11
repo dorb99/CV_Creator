@@ -29,10 +29,13 @@ const UserHome = () => {
             </div>
           </div>
           <div className="flex justify-start mb-8 space-x-4">
-            <button className="bg-indigo-500 hover:bg-indigo-600 text-white tracking-widest transition-all ease-in-out font-bold py-2 px-6 rounded-full">
+            <Link
+              className="bg-indigo-500 hover:bg-indigo-600 text-white tracking-widest transition-all ease-in-out font-bold py-2 px-6 rounded-full"
+              to="/infoform"
+            >
               <FiEdit className="inline-block mr-2" />
               Create New CV
-            </button>
+            </Link>
 
             <button className="bg-emerald-500 hover:bg-emerald-600 text-white tracking-widest transition-all ease-in-out font-bold py-2 px-6 rounded-full">
               <FiFileText className="inline-block mr-2" />

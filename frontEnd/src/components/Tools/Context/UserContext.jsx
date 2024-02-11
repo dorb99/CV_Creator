@@ -6,8 +6,12 @@ const UserContext = createContext();
 axios.defaults.withCredentials = true;
 
 const UserProvider = ({ children }) => {
-  const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState();
+  const [userInfo, setUserInfo] = useState({
+    username: "hw",
+    email: "hw",
+    password: "hw",
+    _id: "65c20e06142cd1aa329d1d13",
+  });
   const [CVs, setCVs] = useState([]);
   const [forgotClicked, setForgotClicked] = useState(0);
 
@@ -138,6 +142,7 @@ const UserProvider = ({ children }) => {
     setForgotClicked,
 
     // actions
+
     createUserAction,
     logInAction,
     deleteUserAction,

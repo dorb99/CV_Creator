@@ -29,7 +29,6 @@ const CVProvider = ({ children }) => {
       __v: 0,
     },
   ]);
-
   const getCV = async (cvId) => {
     try {
       const cv = await axios.get(

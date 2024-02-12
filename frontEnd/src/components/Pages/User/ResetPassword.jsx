@@ -30,7 +30,7 @@ function ResetPassword() {
       let templateParams = {
         username: username,
         code: code,
-        to_email: userInfo.email,
+        email: userInfo.email,
       };
       
       emailjs.init({

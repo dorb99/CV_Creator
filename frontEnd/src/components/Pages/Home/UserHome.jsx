@@ -2,20 +2,17 @@ import React, { useContext, useEffect } from "react";
 import { FiEdit, FiFileText } from "react-icons/fi";
 import { CVContext } from "../../Tools/Context/CVContext";
 import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../Tools/Context/UserContext";
 
 const UserHome = () => {
   const { selectedCV, setSelectedCV, userCV, getCV } = useContext(CVContext);
+  const { userCVs, setUserCVs } = useContext(UserContext);
   const navigate = useNavigate();
-  
-  useEffect(() => {
-    console.log(selectedCV);
-  }, [selectedCV]);
 
   const handleCVClick = (cvId) => {
     localStorage.setItem("selectedCV", JSON.stringify(cvId));
     navigate("/edit");
     setSelectedCV(cvId);
-    console.log(cvId);
   };
 
   return (
@@ -47,11 +44,13 @@ const UserHome = () => {
             Recent CV's
           </div>
           <div className="flex overflow-x-scroll justify-between mx-6 space-x-12">
-            {userCV.map((cv, index) => (
-              <li key={index} onClick={() => handleCVClick(cv)}>
-                {cv._id}
-              </li>
-            ))}
+            {userCVs?.length > 0
+              ? userCVs.map((cv, index) => (
+                  <li key={index} onClick={() => handleCVClick(cv)}>
+                    {cv.id}
+                  </li>
+                ))
+              : null}
           </div>
         </div>
       </div>

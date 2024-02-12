@@ -64,7 +64,7 @@ function InfoForm() {
         oldInfo.userId = userInfo?._id;
         console.log(oldInfo);
         addCV(oldInfo);
-        setStep(-1);
+        setStep(-1);  
       }
     }
     setStep(step + 1);
@@ -75,7 +75,7 @@ function InfoForm() {
       style={{ backgroundImage: `url(${Image})`, backgroundSize: "cover" }}
       className="bg-grey-300 w-screen min-h-screen flex justify-end items-center"
     >
-      <form className="text-white bg-opacity-60 bg-slate-500 p-8 rounded-lg shadow-md w-99 h-full mr-40 flex-col justify-end items-center">
+      <div className="text-white bg-opacity-60 bg-slate-500 p-8 rounded-lg shadow-md w-99 h-full mr-40 flex-col justify-end items-center">
         <div className="text-2xl text-black-700 pb-5 py-4 w-full flex justify-center items-center text-center">
           {headder[step]}
         </div>
@@ -88,7 +88,7 @@ function InfoForm() {
           saveInfo={saveInfo}
         />
       
-      </form>
+      </div>
     </div>
   );
 }

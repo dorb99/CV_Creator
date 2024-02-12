@@ -1,30 +1,17 @@
 import axios from "axios";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { CVContext } from "./CVContext";
 
 const UserContext = createContext();
 
 axios.defaults.withCredentials = true;
 
 const UserProvider = ({ children }) => {
-  let navigate = useNavigate()
+  let navigate = useNavigate();
   const [userInfo, setUserInfo] = useState();
-  const [CVs, setCVs] = useState([]);
+  const [userCVs, setUserCVs] = useState([]);
   const [forgotClicked, setForgotClicked] = useState(0);
-
-  const getUserCVs = async (userid) => {
-    const id = userid;
-    try {
-      const CVs = await axios.get(
-        `${import.meta.env.VITE_FRONTENV}user/${id}/cv`
-      );
-      console.log(CVs.data);
-    } catch {
-      (error) => {
-        console.log(error);
-      };
-    }
-  };
 
   const Authenticate = async () => {
     try {
@@ -33,7 +20,6 @@ const UserProvider = ({ children }) => {
       );
       if (response.status === 200) setUserInfo(response.data);
     } catch (error) {
-      
       console.log(error);
     }
   };
@@ -52,12 +38,27 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  const getUserCVs = async (userid) => {
+    const id = userid;
+    console.log(`${import.meta.env.VITE_FRONTENV}/user/${id}/cv`);
+    try {
+      const CVs = await axios.get(
+        `${import.meta.env.VITE_FRONTENV}/user/${id}/cv`
+      );
+      setUserCVs(CVs.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const logInAction = async (loginInfo) => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_FRONTENV}/login`,
         loginInfo
       );
+      console.log(response.data.user._id);
+      getUserCVs(response.data.user._id);
       setUserInfo(response.data.user);
       navigate("/member");
     } catch {
@@ -68,7 +69,7 @@ const UserProvider = ({ children }) => {
   const editUserAction = async (editedUser) => {
     const user = editedUser;
     try {
-      axios.patch(`${import.meta.env.VITE_FRONTENV}/user/${user.id}`, user);
+      const newUser = await axios.patch(`${import.meta.env.VITE_FRONTENV}/user/${user._id}`, user);
       then(console.log("User edited successfully"));
     } catch {
       (error) => {
@@ -117,7 +118,7 @@ const UserProvider = ({ children }) => {
     try {
       await axios.get(`${import.meta.env.VITE_FRONTENV}/logout`);
       console.log("loged Out");
-      setUserInfo(undefined);
+      setUserInfo();
       navigate("/");
     } catch {
       (error) => {
@@ -130,11 +131,16 @@ const UserProvider = ({ children }) => {
     if (userInfo === undefined) Authenticate();
   }, []);
 
+  useEffect(() => {
+    getUserCVs("65c20e06142cd1aa329d1d13");
+  }, []);
+
   const contextValues = {
     // varibales
     userInfo,
     setUserInfo,
-    CVs,
+    userCVs,
+    setUserCVs,
     forgotClicked,
     setForgotClicked,
 
@@ -144,7 +150,6 @@ const UserProvider = ({ children }) => {
     logInAction,
     deleteUserAction,
     editUserAction,
-    getUserCVs,
     getAllUsers,
     logOutAction,
     getUser,

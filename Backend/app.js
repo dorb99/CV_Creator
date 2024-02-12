@@ -35,8 +35,9 @@ app.use(cors(corsOptions));
 app.post("/", userController.addUser);
 app.post("/login", userController.logInUser);
 app.get("/find/:username", userController.findUser);
+app.patch("/user/:id", userController.patchUser);
 
-app.use("/", authorizedUser);
+// app.use("/", authorizedUser);
 
 app.use("/", userRoutes);
 app.use("/:id/cv", cvRoutes);

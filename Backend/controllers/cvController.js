@@ -12,6 +12,7 @@ exports.allCV = async (req, res) => {
 
 exports.addCV = async (req, res) => {
   try {
+    console.log("hi");
     const userId = req.body.userId;
     const createdCV = await CV.create(req.body);
     const cvid = createdCV._id;
@@ -48,10 +49,12 @@ exports.patchCV = async (req, res) => {
 };
 
 exports.deleteCV = async (req, res) => {
+  const id = req.params.cvid;
   try {
-    await CV.findOneAndDelete(req.params.cvid).exec();
+    await CV.findOneAndDelete(id).exec();
     res.send("CV has been deleted");
   } catch (err) {
     res.send(err);
   }
 };
+ 

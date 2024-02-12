@@ -72,7 +72,6 @@ exports.authenticatedRoute = async (req, res) => {
       return res.status(401).json({ message: "No token provided." });
     }
     const decoded = jwt.verify(token, process.env.SECRET);
-    console.log(decoded);
     const userData = await User.findOne({ _id: decoded._id });
     res.status(200).json(userData);
   } catch (error) {
@@ -95,14 +94,25 @@ exports.logoutUser = (req, res) => {
 };
 
 exports.patchUser = async (req, res) => {
+  let newUser;
   try {
-    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
-    const user = await User.findOneAndUpdate(
-      { _id: req.params.id },
-      { ...req.body, password: hashedPassword }
-    ).exec();
+    if (req.body.password !== undefined) {
+      const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+      newUser = { ...req.body, password: hashedPassword };
+    } else {
+      newUser = req.body;
+    }
+    const user = await User.findOneAndUpdate({ _id: req.params.id }, newUser, {
+      new: true,
+    }).exec();
+
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
     res.send(user);
   } catch (err) {
+    console.error(err);
     res.status(500).send(err);
   }
 };

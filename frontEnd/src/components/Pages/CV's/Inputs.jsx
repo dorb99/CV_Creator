@@ -39,11 +39,11 @@ const Inputs = ({
         {timesInput.map((_, i) => (
           <div key={i}>
             <input
-              id={`${inputType.trim}_${i}`}
+              id={`${inputType}_${i}`}
               className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
               type="text"
               placeholder={inputType}
-              onChange={(e) => handleInputChange(e, i, inputType.trim)}
+              onChange={(e) => handleInputChange(e, i, inputType)}
             />
           </div>
         ))}
@@ -94,16 +94,16 @@ const Inputs = ({
             required
             id="GeneralInfo_3"
             className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
-            type="text"
-            placeholder="work email"
-            onChange={(e) => handleInputChange(e, 3, "work_email")}
+            type="email"
+            placeholder="email"
+            onChange={(e) => handleInputChange(e, 3, "email")}
           />
           <input
             required
             id="GeneralInfo_4"
             className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
             type="text"
-            placeholder="phone number"
+            placeholder="phone_number"
             onChange={(e) => handleInputChange(e, 4, "phone_number")}
           />
           <input
@@ -114,23 +114,39 @@ const Inputs = ({
             placeholder="profession"
             onChange={(e) => handleInputChange(e, 5, "profession")}
           />
-          <textarea
+          <input
             required
             id="GeneralInfo_6"
             className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
+            type="text"
+            placeholder="age"
+            onChange={(e) => handleInputChange(e, 6, "age")}
+          />
+          <input
+            required
+            id="GeneralInfo_7"
+            className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
+            type="text"
+            placeholder="address"
+            onChange={(e) => handleInputChange(e, 7, "address")}
+          />
+          <textarea
+            required
+            id="GeneralInfo_8"
+            className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
             placeholder="Please tell us about yourself as much as you can"
-            onChange={(e) => handleInputChange(e, 6, "about_me")}
+            onChange={(e) => handleInputChange(e, 8, "about_me")}
           />
         </div>
       ) : step === 2 ? (
         // Educational Info
-        PrintInputs("Educational History")
+        PrintInputs("Educational_History")
       ) : step === 3 ? (
         // Skills And Strengths Info
-        PrintInputs("Skills And Strengths")
+        PrintInputs("Skills_And_Strengths")
       ) : step === 4 ? (
         // Former Experience Info
-        PrintInputs("former experience")
+        PrintInputs("former_experience")
       ) : step === 5 ? (
         // Template
         <div className="flex mb-8 justify-center w-full">
@@ -187,10 +203,10 @@ const Inputs = ({
         step === 0 ? (
           <div className="flex justify-end items-center p-3 mb-8 space-x-4">
             <button
-              onClick={(e) => {
-                e.preventDefault();
-                saveInfo();
-              }}
+              // onClick={(e) => {
+              //   e.preventDefault();
+              //   saveInfo();
+              // }}
               type="submit"
               className="w-fit px-4 py-2 bg-stone-500 text-white rounded-lg hover:bg-neutral-600 flex items-center justify-center"
             >
@@ -200,10 +216,10 @@ const Inputs = ({
         ) : (
           <div className="flex justify-end items-center p-3 mb-8 space-x-4">
             <button
-              onClick={(e) => {
-                e.preventDefault();
-                saveInfo();
-              }}
+              // onClick={(e) => {
+              //   e.preventDefault();
+              //   saveInfo();
+              // }}
               type="submit"
               className="w-fit px-4 py-2 bg-stone-500 text-white rounded-lg hover:bg-neutral-600 flex items-center justify-center"
             >

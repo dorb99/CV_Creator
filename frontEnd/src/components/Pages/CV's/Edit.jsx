@@ -116,10 +116,7 @@ function Edit() {
                 </select>
                 <button
                   className="bg-yellow-800 bg-opacity-50 hover:bg-opacity-100 text-xl text-white transition-all ease-in-out py-2 px-6 rounded-full"
-                  // onClick={handleSaveInfo}
-                  onClick={() => {
-                    console.log(userInfo.cv[0]);
-                  }}
+                  onClick={handleSaveInfo}
                 >
                   Save Information
                 </button>

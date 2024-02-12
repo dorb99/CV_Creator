@@ -9,6 +9,7 @@ axios.defaults.withCredentials = true;
 
 const UserProvider = ({ children }) => {
   let navigate = useNavigate();
+  let navigate = useNavigate();
   const [userInfo, setUserInfo] = useState();
   const [userCVs, setUserCVs] = useState([]);
   const [forgotClicked, setForgotClicked] = useState(0);
@@ -143,9 +144,7 @@ const UserProvider = ({ children }) => {
     setUserCVs,
     forgotClicked,
     setForgotClicked,
-
     // actions
-
     createUserAction,
     logInAction,
     deleteUserAction,

@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import axios from "axios";
 import { UserContext } from "../../Tools/Context/UserContext";
 import icon from "../../../assets/WhiteLogo.png";
 import { IoSettingsSharp } from "react-icons/io5";
@@ -10,10 +9,13 @@ function MyProfile() {
   const [editedUser, setEditedUser] = useState(userInfo);
   const [openCV, setOpenCV] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  console.log(editedUser);
 
   useEffect(() => {
-    setUserInfo(editedUser);
-  }, []);
+    if (editedUser) {
+      setUserInfo(editedUser);
+    }
+  }, [editedUser, setUserInfo]);
 
   const handleOpenCV = (index) => {
     setSelectedImage(index);
@@ -25,19 +27,24 @@ function MyProfile() {
     setSelectedImage(null);
   };
 
-  const handleSubmit = (editedUser, e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     editUserAction(editedUser);
+    console.log("hellowrold");
   };
 
   const toggleInputs = () => {
     setIsInputsEnabled((prev) => !prev);
   };
 
+  const maskPassword = (password) => {
+    return password ? "*".repeat(Math.min(10, password.length)) : "";
+  };
+
   return (
     <>
       <div className="w-screen min-h-screen flex flex-col bg-dark-blue text-white pt-20">
-        <div className="flex justify-between items-center px-8 w-profile">
+        <div className="xs:flex-row justify-start flex flex-col xs:justify-between xs:items-center px-8 w-fit">
           <img
             src={icon}
             alt=""
@@ -46,19 +53,13 @@ function MyProfile() {
           <div className="ml-4">
             <p className="font-bold text-xl">
               Username:{" "}
-              <span>{userInfo ? userInfo.username : "Hello World"}</span>
+              <span>{userInfo ? userInfo?.username : "Hello World"}</span>
             </p>
             <p className="text-sm">
-              Email: <span>{userInfo.email}</span>
+              Email: <span>{userInfo?.email}</span>
             </p>
             <p className="text-sm">
-              Password: <span>{userInfo.password}</span>
-            </p>
-          </div>
-          <div className="flex items-center">
-            <IoSettingsSharp className="text-3xl cursor-pointer hover:text-indigo-500 transition-all ease-in-out" />
-            <p className="ml-2 cursor-pointer hover:text-indigo-500 transition-all ease-in-out">
-              Settings
+              Password: <span>{maskPassword(userInfo?.password)}</span>
             </p>
           </div>
         </div>
@@ -91,16 +92,19 @@ function MyProfile() {
               <IoSettingsSharp className="mr-1" />
               Change Profile
             </button>
-            <form className="p-4 bg-dark-blue rounded-lg select-none">
+            <form
+              onSubmit={handleSubmit}
+              className="p-4 bg-dark-blue rounded-lg select-none"
+            >
               <label htmlFor="">
                 Username:
                 <input
                   type="text"
-                  value={editedUser.username}
+                  value={editedUser?.username}
                   onChange={(e) =>
                     setEditedUser({ ...editedUser, username: e.target.value })
                   }
-                  placeholder={userInfo.username}
+                  placeholder={userInfo?.username}
                   className={`w-full px-4 py-2 border-b-1 rounded-lg focus:outline-none outline-none ring-0 focus:border-b-blue-500 bg-transparent focus:bg-white focus:bg-opacity-10 transition-all ease-in-out mb-2 border-b-indigo-600 ${
                     isInputsEnabled ? "" : "bg-gray-300 cursor-not-allowed"
                   }`}
@@ -111,11 +115,11 @@ function MyProfile() {
                 Email:
                 <input
                   type="email"
-                  value={editedUser.email}
+                  value={editedUser?.email}
                   onChange={(e) =>
                     setEditedUser({ ...editedUser, email: e.target.value })
                   }
-                  placeholder={userInfo.email}
+                  placeholder={userInfo?.email}
                   className={`w-full px-4 py-2 border-b-1 rounded-lg focus:outline-none outline-none ring-0 focus:border-b-blue-500 bg-transparent focus:bg-white focus:bg-opacity-10 transition-all ease-in-out mb-2 border-b-indigo-600 ${
                     isInputsEnabled ? "" : "bg-gray-300 cursor-not-allowed"
                   }`}
@@ -126,11 +130,11 @@ function MyProfile() {
                 Password:
                 <input
                   type="password"
-                  value={editedUser.password}
+                  value={maskPassword(editedUser?.password)}
                   onChange={(e) =>
                     setEditedUser({ ...editedUser, password: e.target.value })
                   }
-                  placeholder={userInfo.password}
+                  placeholder={userInfo?.password}
                   className={`w-full px-4 py-2 border-b-1 rounded-lg focus:outline-none outline-none ring-0 focus:border-b-blue-500 bg-transparent focus:bg-white focus:bg-opacity-10 transition-all ease-in-out mb-2 border-b-indigo-600 ${
                     isInputsEnabled ? "" : "bg-gray-300 cursor-not-allowed"
                   }`}
@@ -138,13 +142,14 @@ function MyProfile() {
                 />
               </label>
               <button
-                onSubmit={() => handleSubmit(editedUser)}
+                type="submit"
                 className={`bg-indigo-500 text-white py-2 px-4 rounded-lg mb-4 flex items-center justify-center hover:bg-indigo-600 transition-all ease-in-out ${
                   isInputsEnabled ? "" : "bg-gray-300 cursor-not-allowed"
                 }`}
                 disabled={!isInputsEnabled}
               >
-                Submit Chnages
+                <IoSettingsSharp className="mr-1" />
+                Submit Changes
               </button>
             </form>
           </div>

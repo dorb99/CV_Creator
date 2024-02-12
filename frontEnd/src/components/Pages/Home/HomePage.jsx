@@ -3,9 +3,9 @@ import DraggableLine from "../../Tools/DragLine";
 import leftImage from "../../../assets/bgg.jpg";
 import rightImage from "../../../assets/bg.jpg";
 import "../../../App.css";
-import image from "../../../assets/1.png";
-import image2 from "../../../assets/2.png";
-import image3 from "../../../assets/3.png";
+import image from "../../../assets/template1.png";
+import image2 from "../../../assets/template2.png";
+import image3 from "../../../assets/template3.png";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 
@@ -39,10 +39,7 @@ const testimonialsData = [
 const templateImages = [
   { id: 1, name: "Jino", image: image },
   { id: 2, name: "Rista", image: image2 },
-  { id: 3, name: "Loto", image: image3 },
-  { id: 4, name: "Attero", image: image },
-  { id: 5, name: "Sketer", image: image2 },
-  { id: 6, name: "Pico", image: image3 },
+  { id: 3, name: "Poco", image: image3 },
 ];
 
 const planOptions = [
@@ -197,7 +194,7 @@ function App() {
                               </Link>
                               <Link
                                 to={"/"}
-                                className="flex items-center px-6 py-3 text-gray-500 bg-gray-100 rounded-md hover:bg-gray-200 hover:text-gray-600 transition-all ease-in-out"
+                                className="flex items-center px-6 py-3 text-gray-500 bg-gray-100 rounded-md hover:bg-gray-200 hover:text-gray-600 transition-all ease-in-out w-fit"
                               >
                                 Learn More
                               </Link>
@@ -308,19 +305,50 @@ function App() {
           </div>
         </section>
         <>
-          <section className="w-screen min-h-screen p-6 flex items-center justify-center">
+          <section className="w-screen min-h-fit p-6 my-12 flex flex-col items-center justify-center">
+            <div className="mb-6">
+              <h1 className="m-0 text-xl font-semibold leading-tight border-0 border-gray-300 lg:text-3xl md:text-2xl">
+                OH and the design part we got you coverd
+              </h1>
+              <p className="pt-4 pb-8 m-0 leading-7 text-gray-700 border-0 border-gray-300 sm:pr-10 lg:text-lg w-fit">
+                got stuck with the design part need a helping hand or do you
+                want a free hand on creating your own special cv that is what we
+                are here for{" "}
+              </p>
+              <ul className="p-0 m-0 leading-6 border-0 border-gray-300">
+                <li className="box-border relative py-1 pl-0 text-left text-gray-500 border-solid">
+                  <span className="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-yellow-300 rounded-full">
+                    <span className="text-sm font-bold">✓</span>
+                  </span>{" "}
+                  Fully Customizable CV templates
+                </li>
+                <li className="box-border relative py-1 pl-0 text-left text-gray-500 border-solid">
+                  <span className="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-yellow-300 rounded-full">
+                    <span className="text-sm font-bold">✓</span>
+                  </span>{" "}
+                  Easy to use and user-friendly
+                </li>
+                <li className="box-border relative py-1 pl-0 text-left text-gray-500 border-solid">
+                  <span className="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-yellow-300 rounded-full">
+                    <span className="text-sm font-bold">✓</span>
+                  </span>{" "}
+                  The highest and best customization service on the web
+                </li>
+              </ul>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
               {templateImages.map((template) => (
                 <div
                   key={template.id}
-                  className="flex flex-col items-center p-4 border-2 border-gray-200 rounded-md w-80 h-80 transition-transform transform hover:scale-105 hover:shadow-lg relative overflow-hidden cursor-pointer"
+                  className="flex flex-col items-center border-2 border-gray-200 rounded-md w-80 h-80 transition-transform transform hover:scale-105 hover:shadow-lg relative overflow-hidden cursor-pointer"
                 >
                   <img
                     src={template.image}
                     alt={template.name}
                     className="w-full h-full object-cover rounded-md"
                   />
-                  <p className="text-center absolute w-full text-indigo-600 tracking-widest font-bold text-4xl text- h-full flex justify-center items-center">
+                  <p className="text-center absolute w-full text-indigo-200 tracking-widest font-bold text-4xl text- h-1/3 bottom-0 bg-black bg-opacity-5 flex justify-center items-center ">
                     <span> {template.name}</span>
                   </p>
                 </div>

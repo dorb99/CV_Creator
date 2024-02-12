@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import tempalte1 from "../../../assets/template1.png";
+import tempalte2 from "../../../assets/template2.png";
+import tempalte3 from "../../../assets/template3.png";
 const Inputs = ({
   step,
   setStep,
@@ -151,28 +153,28 @@ const Inputs = ({
         // Template
         <div className="flex mb-8 justify-center w-full">
           <button
-            className="m-5 items-baseline w-20 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
+            className="m-2 items-baseline w-60 px-4 py-2 hover:scale-105 transition-all bg-white rounded-lg focus:bg-indigo-900 "
             onClick={(e) => {
               e.preventDefault(), setInputValue(1);
             }}
           >
-            1
+            <img className="w-96" src={tempalte1} alt="" />
           </button>
           <button
-            className="m-5 items-baseline w-20 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
+            className="m-2 items-baseline w-60 hover:scale-105 transition-all px-4 py-2 bg-white rounded-lg focus:bg-indigo-900 "
             onClick={(e) => {
               e.preventDefault(), setInputValue(2);
             }}
           >
-            2
+            <img className="w-96" src={tempalte2} alt="" />
           </button>
           <button
-            className="m-5 items-baseline w-20 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
+            className="m-2 items-baseline w-60 hover:scale-105 transition-all px-4 py-2 bg-white rounded-lg focus:bg-indigo-900 "
             onClick={(e) => {
               e.preventDefault(), setInputValue(3);
             }}
           >
-            3
+            <img className="w-96" src={tempalte3} alt="" />
           </button>
         </div>
       ) : step === 6 ? (

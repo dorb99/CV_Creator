@@ -32,17 +32,6 @@ const UserHome = () => {
     return "";
   };
 
-  const formattedDate = (timestamp) => {
-    if (timestamp) {
-      return new Date(timestamp).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
-    }
-    return "";
-  };
-
   return (
     <div className="bg-dark-blue min-h-screen pt-20">
       <div className="container mx-auto p-8">

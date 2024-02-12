@@ -9,7 +9,6 @@ axios.defaults.withCredentials = true;
 
 const UserProvider = ({ children }) => {
   let navigate = useNavigate();
-  let navigate = useNavigate();
   const [userInfo, setUserInfo] = useState();
   const [userCVs, setUserCVs] = useState([]);
   const [forgotClicked, setForgotClicked] = useState(0);

@@ -6,12 +6,8 @@ const UserContext = createContext();
 axios.defaults.withCredentials = true;
 
 const UserProvider = ({ children }) => {
-  const [userInfo, setUserInfo] = useState({
-    username: "hw",
-    email: "hw",
-    password: "hw",
-    _id: "65c20e06142cd1aa329d1d13",
-  });
+  let navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState();
   const [CVs, setCVs] = useState([]);
   const [forgotClicked, setForgotClicked] = useState(0);
 
@@ -129,10 +125,9 @@ const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (userInfo === undefined)
-    Authenticate();
+    if (userInfo === undefined) Authenticate();
   }, []);
-  
+
   const contextValues = {
     // varibales
     userInfo,

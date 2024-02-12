@@ -5,11 +5,8 @@ import ResetPassword from "./ResetPassword";
 import Image from "../../../assets/signin-img.jpg";
 
 function LogIn() {
-  const {
-    logInAction,
-    forgotClicked,
-    setForgotClicked,
-  } = useContext(UserContext);
+  const { logInAction, forgotClicked, setForgotClicked } =
+    useContext(UserContext);
   const [logUser, setLogUser] = useState({ username: "", password: "" });
 
   const onSubmit = (e) => {
@@ -42,7 +39,7 @@ function LogIn() {
               type="text"
               placeholder="Username"
               onChange={(e) =>
-                setLogUser({ ...logUser, username: e.target.value })
+                setLogUser({ ...logUser, username: e.target.value.trim() })
               }
             />
             <input
@@ -50,7 +47,7 @@ function LogIn() {
               type="password"
               placeholder="Password"
               onChange={(e) =>
-                setLogUser({ ...logUser, password: e.target.value })
+                setLogUser({ ...logUser, password: e.target.value.trim() })
               }
             />
             <div className="flex items-center justify-evenly w-full">

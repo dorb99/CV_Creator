@@ -61,9 +61,7 @@ const planOptions = [
   {
     title: "Premium Plan",
     description: "For large and complex projects",
-    features: [
-     "Every Feature++2","Yes This Is The Best Offer"
-    ],
+    features: ["Every Feature++2", "Yes This Is The Best Offer"],
     price: "$23699",
   },
 ];
@@ -190,9 +188,8 @@ function App() {
                                   viewBox="0 0 24 24"
                                   fill="none"
                                   stroke="currentColor"
-                                  stroke-width="2"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
+                                  strokeWidth="2"
+                                  strokeLinejoin="round"
                                 >
                                   <line x1="5" y1="12" x2="19" y2="12"></line>
                                   <polyline points="12 5 19 12 12 19"></polyline>
@@ -353,9 +350,9 @@ function App() {
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
                           d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
                         ></path>
                       </svg>
@@ -372,9 +369,9 @@ function App() {
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
                           d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
                         ></path>
                       </svg>
@@ -391,9 +388,9 @@ function App() {
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
                           d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
                         ></path>
                       </svg>
@@ -419,22 +416,22 @@ function App() {
         <section className="box-border py-8 leading-7 text-gray-900 bg-white border-0 border-gray-200 border-solid sm:py-12 md:py-16 lg:py-24">
           <div className="box-border max-w-6xl px-4 pb-12 mx-auto border-solid sm:px-6 md:px-6 lg:px-4">
             <div className="grid max-w-md mx-auto mt-6 overflow-hidden leading-7 text-gray-900 border border-b-4  border-blue-600 rounded-xl md:max-w-lg lg:max-w-none sm:mt-10 lg:grid-cols-3">
-              {planOptions.map((plan) => (
+              {planOptions.map((plan, index) => (
                 <div
                   onClick={() => setSelectedPlan(plan.id)}
-                  key={plan.id}
+                  key={index}
                   className="box-border px-4 py-8 mb-6 text-center bg-white border-solid lg:mb-0 sm:px-4 sm:py-8 md:px-8 md:py-12 lg:px-10"
                 >
                   <h3 className="m-0 text-2xl font-semibold leading-tight tracking-tight text-black border-0 border-solid sm:text-3xl md:text-4xl">
                     {plan.title}
                   </h3>
-                  <p className="mt-3 leading-7 text-gray-900 border-0 border-solid">
+                  <div className="mt-3 leading-7 text-gray-900 border-0 border-solid">
                     <ul>
                       {plan.features.map((item, index) => (
                         <li key={index}>{item}</li>
                       ))}
                     </ul>
-                  </p>
+                  </div>
                   <div className="flex items-center justify-center mt-6 leading-7 text-gray-900 border-0 border-solid sm:mt-8">
                     <p className="box-border m-0 text-6xl font-semibold leading-normal text-center border-0 border-gray-200">
                       {plan.price}

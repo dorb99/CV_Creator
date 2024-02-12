@@ -13,6 +13,7 @@ import Download from "./components/Pages/CV's/Download";
 import InfoForm from "./components/Pages/CV's/InfoForm";
 import Template from "./components/Pages/CV's/Template";
 import Edit from "./components/Pages/CV's/Edit";
+
 function App() {
   return (
     <div>

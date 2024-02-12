@@ -13,36 +13,43 @@ function ResetPassword() {
     editUserAction,
   } = useContext(UserContext);
   const [newPassword, setNewPassword] = useState({ first: "", second: "" });
-  const resetInfo = useRef({
+  const [resetInfo, setResetInfo] = useState({
     name: "",
     code: RandomCode(),
     receivedCode: "",
   });
-  const form = useRef();
+  const formToMail = useRef();
 
   const sendEmail = async (e) => {
     e.preventDefault();
     try {
       setForgotClicked(2);
       await getUser(resetInfo.name);
-      const username = resetInfo.current.name;
-      const code = resetInfo.current.code;
-      emailjs
-        .sendForm("CV-Creator", "Reset_q1w2e3", form.current, {
-          publicKey: "BNGfNzMrgKtNNRXOD",
-          username: username,
-          code: code,
-          to_email: userInfo.email,
-        })
-        .then((response) => {
-          console.log("Email sended", response);
-        });
-    } catch (err) {
-      (error) => {
-        console.log("FAILED...", error.text);
+      const username = userInfo.username;
+      const code = resetInfo.code;
+      let templateParams = {
+        username: username,
+        code: code,
+        to_email: userInfo.email,
       };
+      
+      emailjs.init({
+        publicKey: 'BNGfNzMrgKtNNRXOD'
+      });
+      console.log(code)
+      emailjs.send("CV-Creator", "Reset_q1w2e3", templateParams).then(
+        (response) => {
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        (error) => {
+          console.log("FAILED...", error);
+        }
+      );
+    } catch (error) {
+      console.error("Error sending email:", error);
     }
   };
+  
 
   const submitCode = (e) => {
     e.preventDefault();
@@ -80,47 +87,47 @@ function ResetPassword() {
 
   return (
     <>
-      <form ref={form}>
+      <form ref={formToMail}>
         <div className="text-3xl text-black-700 pb-5 py-4 w-full flex justify-center items-center">
           Please follow the steps
         </div>
         {forgotClicked === 1 ? (
           <>
-            {/* Username input */}
             <input
               className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
               type="text"
               name="username"
-              value={resetInfo.current.name}
+              value={resetInfo.name}
               placeholder="Your username"
               onChange={(e) => {
-                resetInfo.current.name = e.target.value;
+                setResetInfo((prevInfo) => ({
+                  ...prevInfo,
+                  name: e.target.value,
+                }));
               }}
             />
-            {/* Hidden code input */}
             <input
               type="text"
               style={{ display: "none" }}
-              value={resetInfo.current.code}
+              value={resetInfo.code}
               id="code"
               name="code"
             />
           </>
         ) : forgotClicked === 2 ? (
-          <>
-            {/* Received code input */}
-            <input
-              className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
-              type="password"
-              placeholder="Your code..."
-              onChange={(e) => {
-                resetInfo.current.receivedCode = e.target.value;
-              }}
-            />
-          </>
+          <input
+            className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
+            type="password"
+            placeholder="Your code..."
+            onChange={(e) => {
+              setResetInfo((prevInfo) => ({
+                ...prevInfo,
+                receivedCode: e.target.value,
+              }));
+            }}
+          />
         ) : (
           <>
-            {/* New Password input */}
             <input
               className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
               type="password"
@@ -133,7 +140,6 @@ function ResetPassword() {
                 }));
               }}
             />
-            {/* Repeat Password input */}
             <input
               className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
               type="password"
@@ -149,7 +155,6 @@ function ResetPassword() {
           </>
         )}
         <div className="flex items-center justify-evenly w-full">
-          {/* Action button */}
           <button
             className="items-baseline w-fit px-4 py-2 bg-blue-300 text-white rounded-lg hover:bg-blue-500"
             type="submit"
@@ -167,7 +172,6 @@ function ResetPassword() {
               ? "Send reset code"
               : "Done!"}
           </button>
-          {/* Go back button */}
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -181,7 +185,6 @@ function ResetPassword() {
       </form>
     </>
   );
-  
 }
 
 export default ResetPassword;

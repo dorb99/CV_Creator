@@ -1,12 +1,13 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 const UserContext = createContext();
 
 axios.defaults.withCredentials = true;
 
 const UserProvider = ({ children }) => {
-  let navigate = useNavigate();
+  let navigate = useNavigate()
   const [userInfo, setUserInfo] = useState();
   const [CVs, setCVs] = useState([]);
   const [forgotClicked, setForgotClicked] = useState(0);
@@ -32,7 +33,7 @@ const UserProvider = ({ children }) => {
       );
       if (response.status === 200) setUserInfo(response.data);
     } catch (error) {
-      navigate("/");
+      
       console.log(error);
     }
   };
@@ -117,6 +118,7 @@ const UserProvider = ({ children }) => {
       await axios.get(`${import.meta.env.VITE_FRONTENV}/logout`);
       console.log("loged Out");
       setUserInfo(undefined);
+      navigate("/");
     } catch {
       (error) => {
         console.log(error);

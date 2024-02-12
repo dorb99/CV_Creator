@@ -1,8 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const Inputs = ({ step, setStep, inputValue, setInputValue, cvInfo }) => {
-  const [timesInput, setTimesInput] = useState([1]);
+const Inputs = ({
+  step,
+  setStep,
+  inputValue,
+  setInputValue,
+  cvInfo,
+  saveInfo,
+}) => {
+  const [timesInput, setTimesInput] = useState([]);
 
   const handleInputChange = (e, i, inputType) => {
     e.preventDefault();
@@ -11,27 +18,65 @@ const Inputs = ({ step, setStep, inputValue, setInputValue, cvInfo }) => {
     setInputValue(oldInfo);
   };
 
-  const handleAddInputField = () => {
-    event.preventDefault();
+  const handleAddInputField = (e) => {
+    e.preventDefault();
     setTimesInput([...timesInput, 1]);
   };
 
+  const handleRemoveInputField = (e) => {
+    e.preventDefault();
+    setTimesInput((prevTimesInput) => prevTimesInput.slice(0, -1));
+  };
+
   useEffect(() => {
+    setInputValue({});
     setTimesInput([1]);
-    const obj = { ...inputValue };
-    Object.keys(obj).forEach((key) => {
-      delete obj[key];
-    });
-    setInputValue(obj);
   }, [step]);
 
+  const PrintInputs = (inputType) => {
+    return (
+      <div>
+        {timesInput.map((_, i) => (
+          <div key={i}>
+            <input
+              id={`${inputType.trim}_${i}`}
+              className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
+              type="text"
+              placeholder={inputType}
+              onChange={(e) => handleInputChange(e, i, inputType.trim)}
+            />
+          </div>
+        ))}
+        <div className="flex w-full items-center justify-around">
+          <button
+            className="mb-5 items-baseline w-40 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
+            onClick={(e) => handleAddInputField(e)}
+          >
+            Add an input field
+          </button>
+          <button
+            className="mb-5 items-baseline w-40 px-4 py-2 bg-red-400 text-white rounded-lg hover:bg-red-600"
+            onClick={(e) => handleRemoveInputField(e)}
+          >
+            Remove an input field
+          </button>
+        </div>
+      </div>
+    );
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    saveInfo();
+  };
+
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       {step === 0 ? null : step === 1 ? (
         // General Info
-        <>
+        <div>
           <input
             required
+            id="GeneralInfo_1"
             className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
             type="text"
             placeholder="firstname"
@@ -39,6 +84,7 @@ const Inputs = ({ step, setStep, inputValue, setInputValue, cvInfo }) => {
           />
           <input
             required
+            id="GeneralInfo_2"
             className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
             type="text"
             placeholder="lastname"
@@ -46,6 +92,7 @@ const Inputs = ({ step, setStep, inputValue, setInputValue, cvInfo }) => {
           />
           <input
             required
+            id="GeneralInfo_3"
             className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
             type="text"
             placeholder="work email"
@@ -53,6 +100,7 @@ const Inputs = ({ step, setStep, inputValue, setInputValue, cvInfo }) => {
           />
           <input
             required
+            id="GeneralInfo_4"
             className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
             type="text"
             placeholder="phone number"
@@ -60,84 +108,31 @@ const Inputs = ({ step, setStep, inputValue, setInputValue, cvInfo }) => {
           />
           <input
             required
+            id="GeneralInfo_5"
             className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
             type="text"
             placeholder="profession"
             onChange={(e) => handleInputChange(e, 5, "profession")}
           />
           <textarea
+            required
+            id="GeneralInfo_6"
             className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
             placeholder="Please tell us about yourself as much as you can"
             onChange={(e) => handleInputChange(e, 6, "about_me")}
           />
-        </>
+        </div>
       ) : step === 2 ? (
         // Educational Info
-        <>
-          {timesInput.map((_, i) => (
-            <div key={i}>
-              <input
-                required
-                defaultValue={
-                  cvInfo?.EducationalHistory?.[`education_${i}`] || ""
-                }
-                className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
-                type="text"
-                placeholder="educational history"
-                onChange={(e) => handleInputChange(e, i, "education")}
-              />
-            </div>
-          ))}
-          <button
-            className="mb-5 items-baseline w-36 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
-            onClick={handleAddInputField}
-          >
-            Add an input field
-          </button>
-        </>
+        PrintInputs("Educational History")
       ) : step === 3 ? (
         // Skills And Strengths Info
-        <>
-          {timesInput.map((i) => (
-            <div key={i}>
-              <input
-                required
-                className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
-                type="text"
-                placeholder="Skills And Strengths"
-                onChange={(e) => handleInputChange(e, i, "SkillsAndStrengths")}
-              />
-            </div>
-          ))}
-          <button
-            className="mb-5 items-baseline w-36 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
-            onClick={handleAddInputField}
-          >
-            Add an input field
-          </button>
-        </>
+        PrintInputs("Skills And Strengths")
       ) : step === 4 ? (
         // Former Experience Info
-        <>
-          {timesInput.map((_, i) => (
-            <div key={i}>
-              <input
-                required
-                className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
-                type="text"
-                placeholder="Former Experience"
-                onChange={(e) => handleInputChange(e, i, "FormerExperience")}
-              />
-            </div>
-          ))}
-          <button
-            className="mb-5 items-baseline w-36 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
-            onClick={handleAddInputField}
-          >
-            Add an input field
-          </button>
-        </>
+        PrintInputs("former experience")
       ) : step === 5 ? (
+        // Template
         <div className="flex mb-8 justify-center w-full">
           <button
             className="m-5 items-baseline w-20 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
@@ -188,7 +183,36 @@ const Inputs = ({ step, setStep, inputValue, setInputValue, cvInfo }) => {
           </Link>
         </div>
       )}
-    </>
+      {step !== 7 ? (
+        step === 0 ? (
+          <div className="flex justify-end items-center p-3 mb-8 space-x-4">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                saveInfo();
+              }}
+              type="submit"
+              className="w-fit px-4 py-2 bg-stone-500 text-white rounded-lg hover:bg-neutral-600 flex items-center justify-center"
+            >
+              Start
+            </button>
+          </div>
+        ) : (
+          <div className="flex justify-end items-center p-3 mb-8 space-x-4">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                saveInfo();
+              }}
+              type="submit"
+              className="w-fit px-4 py-2 bg-stone-500 text-white rounded-lg hover:bg-neutral-600 flex items-center justify-center"
+            >
+              Submit
+            </button>
+          </div>
+        )
+      ) : null}
+    </form>
   );
 };
 

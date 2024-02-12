@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 const UserHome = () => {
   const { selectedCV, setSelectedCV, userCV, getCV } = useContext(CVContext);
   const navigate = useNavigate();
+  
   useEffect(() => {
     console.log(selectedCV);
   }, [selectedCV]);

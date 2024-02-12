@@ -80,7 +80,6 @@ exports.authenticatedRoute = async (req, res) => {
   }
 };
 
-
 exports.logoutUser = (req, res) => {
   try {
     res.cookie("token", "", {

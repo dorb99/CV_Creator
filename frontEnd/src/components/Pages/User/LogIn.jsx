@@ -5,11 +5,8 @@ import ResetPassword from "./ResetPassword";
 import Image from "../../../assets/signin-img.jpg";
 
 function LogIn() {
-  const {
-    logInAction,
-    forgotClicked,
-    setForgotClicked,
-  } = useContext(UserContext);
+  const { logInAction, forgotClicked, setForgotClicked } =
+    useContext(UserContext);
   const [logUser, setLogUser] = useState({ username: "", password: "" });
 
   const onSubmit = (e) => {

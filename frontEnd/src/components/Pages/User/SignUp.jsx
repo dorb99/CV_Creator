@@ -3,7 +3,7 @@ import { UserContext } from "../../Tools/Context/UserContext";
 import { CVContext } from "../../Tools/Context/CVContext";
 import Image from "../../../assets/signin-img.jpg";
 import emailjs from "@emailjs/browser";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function SignIn() {
   let navigate = useNavigate();
@@ -65,7 +65,7 @@ function SignIn() {
     let templateParams = {
       username: newUser.username,
       code: RandomCode(),
-      to_email: newUser.email,
+      email: newUser.email,
     };
     try {
       emailjs
@@ -88,25 +88,28 @@ function SignIn() {
       ...prevCode,
       sendedCode: randomString,
     }));
-    return (randomString)
+    return randomString;
   }
 
   return (
     <div
       style={{ backgroundImage: `url(${Image})`, backgroundSize: "cover" }}
-      className="bg-grey-300 w-screen min-h-screen flex justify-end items-center"
+      className="bg-grey-300 w-screen min-h-screen flex justify-center items-center"
     >
       <form
-        className="text-white bg-opacity-60 bg-slate-500 p-8 rounded-lg shadow-md w-99 h-full mr-40 flex-col justify-end items-center"
+        className="bg-gray-700 p-8 rounded-lg shadow-md w-96 h-full flex-col bg-opacity-60 justify-end items-center"
         onSubmit={(e) => onSubmit(e)}
       >
-        <div className="text-3xl text-black-700 pb-5 py-4 w-full flex justify-center items-center">
-          Welcome! Please signin
+        <div className="text-3xl text-black-700 pb-5 py-4 w-full flex justify-center items-center text-white">
+          New Here?
         </div>
+        <p className="text-center text-gray-300 font-light text-sm">
+          just fill all this out and we will make the best cv ever in no time{" "}
+        </p>
         <input
           className="outline-none transition-all ease-in-out w-full px-4 py-2 mb-4 rounded-lg focus:bg-opacity-30 bg-transparent border-b-2 focus:bg-stone-300 placeholder:text-white"
           type="text"
-          placeholder="UserName"
+          placeholder="Username"
           onChange={(e) => {
             e.preventDefault();
             const changedUser = newUser;
@@ -162,7 +165,7 @@ function SignIn() {
         ) : null}
         {code.sendedCode !== "" ? (
           <button
-            className="w-36 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
+            className="w-full transition-all ease-in-out px-4 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-700"
             type="button"
             onClick={() => CreateUser()}
           >
@@ -170,12 +173,15 @@ function SignIn() {
           </button>
         ) : (
           <button
-            className="w-36 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
+            className="w-full transition-all ease-in-out px-4 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-700"
             type="submit"
           >
             Submit
           </button>
         )}
+        <p className="text-white mt-3 text-sm hover:text-rose-500 transition-all ease-in-out">
+          <Link to={"/login"}> Already have an account? Log In</Link>
+        </p>
       </form>
     </div>
   );

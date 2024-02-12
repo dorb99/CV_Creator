@@ -7,7 +7,7 @@ const UserContext = createContext();
 axios.defaults.withCredentials = true;
 
 const UserProvider = ({ children }) => {
-  let navigate = useNavigate()
+  let navigate = useNavigate();
   const [userInfo, setUserInfo] = useState();
   const [CVs, setCVs] = useState([]);
   const [forgotClicked, setForgotClicked] = useState(0);
@@ -33,7 +33,6 @@ const UserProvider = ({ children }) => {
       );
       if (response.status === 200) setUserInfo(response.data);
     } catch (error) {
-      
       console.log(error);
     }
   };
@@ -68,7 +67,7 @@ const UserProvider = ({ children }) => {
   const editUserAction = async (editedUser) => {
     const user = editedUser;
     try {
-      axios.patch(`${import.meta.env.VITE_FRONTENV}/user/${user.id}`, user);
+      axios.patch(`${import.meta.env.VITE_FRONTENV}/user/${user._id}`, user);
       then(console.log("User edited successfully"));
     } catch {
       (error) => {
@@ -117,7 +116,7 @@ const UserProvider = ({ children }) => {
     try {
       await axios.get(`${import.meta.env.VITE_FRONTENV}/logout`);
       console.log("loged Out");
-      setUserInfo(undefined);
+      setUserInfo();
       navigate("/");
     } catch {
       (error) => {
@@ -137,9 +136,7 @@ const UserProvider = ({ children }) => {
     CVs,
     forgotClicked,
     setForgotClicked,
-
     // actions
-
     createUserAction,
     logInAction,
     deleteUserAction,

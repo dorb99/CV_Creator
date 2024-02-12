@@ -6,6 +6,34 @@
 @tailwind utilities;
 body {
   overflow-x: hidden;
-  font-family: "Bebas Neue", sans-serif;  
+  font-family: "Bebas Neue", sans-serif;
   letter-spacing: 3px;
 }
+input {
+  font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+}
+
+/* Custom Scrollbar */
+#something {
+  scrollbar-width: auto;
+  scrollbar-color: #233b65 #ffffff;
+}
+
+/* Define the thumb style */
+#something::-webkit-scrollbar-thumb {
+  background-color: #ffffff;
+  border-radius: 12px;
+}
+
+/* Define the track style */
+#something::-webkit-scrollbar-track {
+  background-color: #ffffff;
+  border-radius: 12px;
+}
+
+/* Handle the hover effect */
+#something::-webkit-scrollbar-thumb:hover {
+  background-color: #6b7280;
+}
+
+/* Define the button style */

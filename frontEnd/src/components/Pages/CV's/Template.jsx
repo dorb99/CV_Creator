@@ -52,8 +52,12 @@ const Template = ({ customization }) => {
                   Contact
                 </h2>
                 <p className="text-sm mt-2 lg:text-base xl:text-lg">From:</p>
-                <p className="text-sm lg:text-base xl:text-lg">Tel:</p>
-                <p className="text-sm lg:text-base xl:text-lg">Email:</p>
+                <p className="text-sm lg:text-base xl:text-lg">
+                  Tel:{GeneralInfo.phone_number}
+                </p>
+                <p className="text-sm lg:text-base xl:text-lg">
+                  Email: {GeneralInfo.email}
+                </p>
               </div>
               <div>
                 <h2
@@ -131,7 +135,7 @@ const Template = ({ customization }) => {
         </div>
       );
 
-    case "2":
+    case "1":
       return (
         <div
           className="w-fit min-h-fit flex flex-col lg:flex-row"
@@ -185,7 +189,7 @@ const Template = ({ customization }) => {
                   }}
                   className="border-b-1 border-black"
                 >
-                  Tel:
+                  Tel: <p>{GeneralInfo.phone_number}</p>
                 </span>
                 <span
                   style={{
@@ -193,7 +197,7 @@ const Template = ({ customization }) => {
                   }}
                   className="border-b-1 border-black"
                 >
-                  Email:
+                  Email: <p>{GeneralInfo.email}</p>
                 </span>
               </div>
               <ul>
@@ -255,6 +259,89 @@ const Template = ({ customization }) => {
                 ))}
               </ul>
             </div>
+          </div>
+        </div>
+      );
+    case "2":
+      return (
+        <div
+          className="flex flex-col items-center justify-center p-8 min-h-screen"
+          style={{
+            color: customization.colorText,
+            fontFamily: customization.font,
+            borderColor: customization.colorBorder,
+            backgroundColor: customization.bg,
+          }}
+        >
+          <div
+            className="text-center bg-blue-500 p-4 rounded-md mb-4"
+            style={{
+              backgroundColor: customization.bgLeft,
+              color: customization.colorHeader,
+              borderColor: customization.colorBorder,
+            }}
+          >
+            <h1 style={{ fontSize: "2.5em" }}>{GeneralInfo.name_1}</h1>
+            <p>{GeneralInfo.age_2} years old</p>
+            <p>From:{GeneralInfo.living}</p>
+            <p>Phone:{GeneralInfo.phone_number}</p>
+            <p>Email:{GeneralInfo.email}</p>
+          </div>
+          <div className="mb-4">
+            <h2
+              style={{
+                fontSize: "1.8em",
+                borderBottom: "2px solid #333",
+                paddingBottom: "10px",
+              }}
+            >
+              About Me
+            </h2>
+            <p className="text-lg">
+              {GeneralInfo.aboutme ||
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."}
+            </p>
+          </div>
+          <div className="mb-4">
+            <h2
+              style={{
+                borderColor: customization.colorBorder,
+              }}
+            >
+              Work Experience
+            </h2>
+            <ul style={{ listStyleType: "none", padding: "0" }}>
+              {Object.values(FormerExperience).map((experience, index) => (
+                <li
+                  key={index}
+                  style={{ marginBottom: "15px", fontSize: "1.2em" }}
+                >
+                  {experience}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h2
+              style={{
+                fontSize: "1.8em",
+                borderBottom: "2px solid #333",
+                paddingBottom: "10px",
+                marginTop: "20px",
+              }}
+            >
+              Skills
+            </h2>
+            <ul style={{ listStyleType: "none", padding: "0" }}>
+              {Object.keys(SkillsAndStrengths).map((key, index) => (
+                <li
+                  key={index}
+                  style={{ marginBottom: "15px", fontSize: "1.2em" }}
+                >
+                  {key}: {SkillsAndStrengths[key]}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       );

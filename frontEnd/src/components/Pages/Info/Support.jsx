@@ -106,7 +106,7 @@ const ContactForm = () => {
             </button>
           </form>
         </div>
-        <img className="w-98 p-2" src={image} alt="" />
+        <img className="w-98 rounded-lg shadow-md " src={image} alt="" />
       </section>
 
       <section className="bg-dark-blue py-16 text-center px-12">
@@ -117,7 +117,6 @@ const ContactForm = () => {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* FAQ Cards */}
             <div className="bg-white p-8 rounded-md shadow-lg text-blue-900">
               <h3 className="text-2xl font-bold mb-2">
                 How do I contact support?

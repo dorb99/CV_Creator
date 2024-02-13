@@ -105,11 +105,22 @@ exports.patchUser = async (req, res) => {
     const user = await User.findOneAndUpdate({ _id: req.params.id }, newUser, {
       new: true,
     }).exec();
-
     if (!user) {
       return res.status(404).send("User not found");
     }
-
+    console.log(user)
+    const token = jwt.sign({ _id: user._id }, process.env.SECRET, {
+      expiresIn: "1h",
+    });
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 360000,
+      sameSite: "strict",
+    });
+    res.status(200).send({
+      message: "Logged in successfully",
+      user,
+    });
     res.send(user);
   } catch (err) {
     console.error(err);

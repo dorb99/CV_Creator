@@ -205,10 +205,6 @@ const Inputs = ({
         step === 0 ? (
           <div className="flex justify-end items-center p-3 mb-8 space-x-4">
             <button
-              // onClick={(e) => {
-              //   e.preventDefault();
-              //   saveInfo();
-              // }}
               type="submit"
               className="w-fit px-4 py-2 bg-stone-500 text-white rounded-lg hover:bg-neutral-600 flex items-center justify-center"
             >
@@ -218,10 +214,6 @@ const Inputs = ({
         ) : (
           <div className="flex justify-end items-center p-3 mb-8 space-x-4">
             <button
-              // onClick={(e) => {
-              //   e.preventDefault();
-              //   saveInfo();
-              // }}
               type="submit"
               className="w-fit px-4 py-2 bg-stone-500 text-white rounded-lg hover:bg-neutral-600 flex items-center justify-center"
             >

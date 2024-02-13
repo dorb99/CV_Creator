@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { FiEdit, FiFileText } from "react-icons/fi";
 import { CVContext } from "../../Tools/Context/CVContext";
-import { UserContext } from "../../Tools/Context/UserContext";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Tools/Context/UserContext";
 
@@ -10,10 +9,6 @@ const UserHome = () => {
   const { userInfo } = useContext(UserContext);
   const { userCVs, setUserCVs } = useContext(UserContext);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(selectedCV);
-  }, [selectedCV]);
 
   const handleCVClick = (cvId) => {
     localStorage.setItem("selectedCV", JSON.stringify(cvId));

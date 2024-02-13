@@ -32,7 +32,6 @@ function ResetPassword() {
         code: code,
         email: userInfo.email,
       };
-      
       emailjs.init({
         publicKey: 'BNGfNzMrgKtNNRXOD'
       });
@@ -49,7 +48,6 @@ function ResetPassword() {
       console.error("Error sending email:", error);
     }
   };
-  
 
   const submitCode = (e) => {
     e.preventDefault();
@@ -69,7 +67,7 @@ function ResetPassword() {
         code: RandomCode(),
         receivedCode: "",
       });
-      const newInfo = { id: userInfo._id, password: newPassword.first };
+      const newInfo = { _id: userInfo._id, password: newPassword.first };
       editUserAction(newInfo);
       setForgotClicked(0);
     } else {
